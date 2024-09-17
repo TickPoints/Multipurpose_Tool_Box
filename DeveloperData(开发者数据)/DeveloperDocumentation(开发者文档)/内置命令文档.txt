@@ -1,0 +1,79 @@
+== 引言 ==
+本文档提供了 多用工具包 内置的命令和类型，请依标准参阅。
+== 主文档 ==
+console // 在控制台发送消息
+    -[type: ["warn","error"], message: String] => message:String
+getEntity   // 获得一个实体的id
+    -[type: ["self","target","player"], dimension?:Dimension, options:?:JSON<entityQueryOptions>] => entityId: Entity //无论获得多少个满足的实体，仅选择其中的一个(self指自己，player指最近的玩家)
+Macro   // 执行宏
+    -[MacroName:String] => result:Boolen
+== 类型文档 ==
+=== ? ===
+不确定的类型(可能是多种类型)
+=== String ===
+字符串
+=== Enum ===
+命令枚举字符串，通常表现为这种形式:
+    TypeId: ["id1","id2"]
+=== Number ===
+数字
+=== List ===
+列表
+=== Int ===
+Number的一种，指整数
+=== Entity ===
+实体，本质是实体唯一ID的String
+=== Player ===
+玩家，实体的一种
+=== Boolen ===
+布尔值，true(真)或false
+=== Vector3 ===
+三维向量，本质是JSON:
+{
+    "x": Number,
+    "y": Number,
+    "z": Number
+}
+=== JSON ===
+JSON（JavaScript Object Notation）是一种轻量级的数据交换格式。它基于 ECMAScript（European Computer Manufacturers Association, 欧洲计算机协会制定的js规范）的一个子集，采用完全独立于编程语言的文本格式来存储和表示数据。
+语法:
+1. 六个构造字符：
+begin-array = ws %x5B ws ; [ 左方括号
+begin-object = ws %x7B ws ; { 左大括号
+end-array = ws %x5D ws ; ] 右方括号
+end-object = ws %x7D ws ; } 右大括号
+name-separator = ws %x3A ws ; : 冒号
+value-separator = ws %x2C ws ; , 逗号
+2. 在这六个构造字符的前或后允许存在无意义的空白符(ws):
+ws = *（%x20 /; 空间
+%x09 /; 水平标签
+%x0A /; 换行或换行
+%x0D）; 回程
+3.JSON的值:
+JSON的构成: ws 值 ws [1]
+值可以是对象、数组、数字、字符串或者三个字面值(false、null、true)中的一个。值中的字面值中的英文必须使用小写。
+对象由花括号括起来的逗号分割的成员构成，成员是字符串键和上文所述的值由逗号分割的键值对组成。
+=== EntityQueryOptions ===
+用于比较实体是否满足要求，本质是一个类或者JSON，一般系统将传入的信息转化为JSON。具体格式如下:
+    {
+        "tags"?: List, // 实体所必须带有的tag，列表，如["Hello","world"](?代表此项可有可无)。
+        "name"?: String,   // 实体的名称。
+        "type"?: EntityType,   // 实体的类型。
+        "excludeTags"?: List,  // 实体所必须不带有的tag。
+        "closest"?: Number, // 限制要返回的实体数，选择此属性指定的最接近的N个实体。还必须在查询选项对象上指定位置值。
+        "farthest"?: Number,  // 限制要返回的实体数，选择此属性指定的最远N个实体。还必须在查询选项对象上指定位置值。
+        "location"?: Vector3, // 将种子位置添加到与最近、最远、极限、体积和距离属性一起使用的查询中。
+        "maxDistance"?: Number,   // 如果指定，则包括距离位置属性中指定的位置小于此距离的实体。
+        "minDistance"?: Number,   // 如果指定，则包括距离位置属性中指定的位置最小此距离的实体。
+        "volume"?: Vector3   // 与位置一起，指定要包括的实体的立方体体积。
+    }
+=== Dimension ===
+一种枚举，指Minecraft维度
+[
+    "overworld",
+    "neather",
+    "the_end"
+]
+overworld       主世界
+neather         下界
+the_end         末地

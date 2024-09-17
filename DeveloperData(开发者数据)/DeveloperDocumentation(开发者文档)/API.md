@@ -1,13 +1,13 @@
 # 引言 
 API由"interface.js"文件管理，提供了一系列可以操作 多用工具包 系统的方法，为了实现接口，API使用了一种特殊的方法完成数据互通(见"./数据互通基本协议")。
 
-这种方法即是通过 scriptevent 命令。
+这种方法即是通过 <code>scriptevent</code> 命令。
 
 像下面这个例子:
 ```
 scriptevent toolAPI:test {"meta":{"id":"test","uuid":"",version:""},"packData":{"RequestCode":1},"otherData":{}}
 ```
-很容易就能看出后面的内容是JSON.stringify()后的JSON数据。通过这些东西，我们就可以完成数据包互通。
+很容易就能看出后面的内容是<code>JSON.stringify()</code>后的JSON数据。通过这些东西，我们就可以完成数据包互通。
 ## 实现
 
 由于命令有长度限制，所以当较长的数据需要传输时会出现问题，因此我们用到了下面的两个方法(他们同样在多用工具包内部使用了):
@@ -193,7 +193,7 @@ _Tip:上面内容使用了 point.js，但省略了导入过程_
 ## 协议基本
 在多用工具包中使用数据互通时必须遵守以下规则:
 
-1. 数据包应该包括meta(元数据)，packData(传递的主要数据)，otherData(其他数据)
+1. 数据包应该包括<code>meta</code>(元数据)，<code>packData</code>(传递的主要数据)，<code>otherData</code>(其他数据)
 
 2. meta应包括以下内容:
 ```

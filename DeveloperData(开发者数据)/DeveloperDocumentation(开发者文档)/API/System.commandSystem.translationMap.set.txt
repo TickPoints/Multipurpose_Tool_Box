@@ -1,0 +1,12 @@
+Tip: 使用了系统级权限
+== 参数 ==
+{
+    "value": "string"
+}
+=== value ===
+设置后的 commandSystem.translationMap。
+== 功能 ==
+直接设置 commandSystem.translationMap。
+== 返回包 ==
+当出现bug等情况时，还会返回一个结果包(id: result)。
+Void

@@ -1,0 +1,22 @@
+Tip: 实验中，在未来的版本中可能删除或做过多修改
+== 参数 ==
+{
+    "UserId": "string",
+    "TargetUser": "obj",
+    "Mail": "string",
+    "UUID"?: "string"
+}
+=== UserId ===
+User的唯一标识符(与"user.PluginUser.new"中的id同)。
+=== TargetUser ===
+TargetUser对象解析(详见"../User对象解析")。
+=== Mail ===
+邮件信息。
+=== UUID ===
+(可能存在)邮件唯一标识符(默认随机生成)。
+== 功能 ==
+用已存在的 PluginUser 发送邮件。
+Tip: PluginUser是临时的，在/reload后会删除。
+== 返回包 ==
+Void
+当出现bug等情况时，还会返回一个结果包(id: result)。

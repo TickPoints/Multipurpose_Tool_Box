@@ -1,0 +1,15 @@
+Tip: 使用了系统级权限
+== 参数 ==
+{
+    "value": "string",
+    "id": "string"
+}
+=== value ===
+键值
+=== id ===
+键名
+== 功能 ==
+添加一个键值对到 commandSystem.translationMap 中。
+== 返回包 ==
+当出现bug等情况时，还会返回一个结果包(id: result)。
+Void

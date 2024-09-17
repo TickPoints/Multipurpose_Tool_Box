@@ -1,0 +1,17 @@
+== 参数 ==
+{
+    "callbackId": "string"
+}
+=== callbackId ===
+触发事件的Id。
+== 功能 ==
+监听命令注册事件，在事件发生时触发并返回包。
+== 返回包 ==
+Void
+当出现bug等情况时，还会返回一个结果包(id: result)。
+Tip: 虽无常规返回包，但在触发事件时会返回包:
+Id: "callback"
+{
+    "source": "object", // 注册包的元数据
+    "commands": "obj"   // 注册的所有命令
+}

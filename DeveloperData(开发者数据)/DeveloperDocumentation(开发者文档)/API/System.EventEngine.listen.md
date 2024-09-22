@@ -8,14 +8,24 @@ _Tip: 需要系统级权限_
 }
 ```
 ## callbackId
-string
+提示包所需要的回调ID，事件触发后，提示包将发给此```callbackId:callback```
 ## id
-string
+欲监听的id名
 # 功能
-一个测试，用于帮助插件确定多用工具包是否正常运行(或者是当前的基础协议是否正常)，如不正常则不会有效。
+可以绕过<code>event</code>的限制，通过系统权限直接触碰到<code>EventEngine</code>，并以此监听任意事件
 # 返回包
 下面给出包不一定都存在，视情况有所变动
 
+## callback
+Id: callback
+
+```
+
+{
+    "?": "这取决于此事件实际的事件返回数据"
+}
+
+```
 ## result
 Id: result
 

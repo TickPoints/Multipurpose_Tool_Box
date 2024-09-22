@@ -6,11 +6,17 @@
 }
 ```
 ## triggerName
-string
+需打开此ui的玩家
 ## uiName
-string
+UI的名称，可选的有:
+aboutUi
+toolUi
+OPToolUi
+settingUi
+commandSystemUi
+UDUi
 # 功能
-一个测试，用于帮助插件确定多用工具包是否正常运行(或者是当前的基础协议是否正常)，如不正常则不会有效。
+对目标玩家打开UI
 # 返回包
 下面给出包不一定都存在，视情况有所变动
 

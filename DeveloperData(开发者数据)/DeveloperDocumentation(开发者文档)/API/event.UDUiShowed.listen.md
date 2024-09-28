@@ -5,7 +5,7 @@
 }
 ```
 ## callbackId
-提示包所需要的回调ID，事件触发后，提示包将发给此```callbackId:callback```
+提示包所需要的回调ID，事件触发后，提示包将发给此<code>callbackId:callback</code>
 # 功能
 监听 UDUiShowed 事件(即开发者文档UI打开事件)，事件触发后，会发送提示包
 # 返回包

@@ -8,7 +8,7 @@ _Tip: 需要系统级权限_
 }
 ```
 ## callbackId
-提示包所需要的回调ID，事件触发后，提示包将发给此```callbackId:callback```
+提示包所需要的回调ID，事件触发后，提示包将发给此<code>callbackId:callback</code>
 ## id
 欲监听的id名
 # 功能

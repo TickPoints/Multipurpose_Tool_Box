@@ -320,10 +320,10 @@ let interfaceData = {
             "needData": {
                 "commands": "object"
             },
-            "function": "这是老旧的接口，安全性较低，请用`System.commandSystem.registr`。在未来，此接口将被废除"
+            "function": "注册命令"
         },
         "discard": {
-            "toUse": "`System.commandSystem.registr`"
+            "toUse": "System.commandSystem.registr"
         }
     },
     "System.commandSystem.translationMap.add": {

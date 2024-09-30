@@ -524,22 +524,6 @@ const _Interface = {
             "commands": "object"
         }
     },
-    "commandSystem.registr": {
-        "func": function(data, meta) {
-            // 实验性 Experiment
-            commandSystemReg.push(data.commands);
-            commandSystemRegReload();
-            tool.printErr(tool.translationf(debugMes.commandSystem.commandRegTip, meta.id), "Info", meta.name);
-            EventEngine.trigger("commandReg", {
-                "source": meta,
-                "commands": data.commands
-            });
-            sendResult(meta.uuid, "Load Pass.", "Pass");
-        },
-        "needData": {
-            "commands": "object"
-        }
-    },
     "System.commandSystem.translationMap.add": {
         "func": function(data, meta) {
             if (!config.systemPlugins.includes(meta.id)) {

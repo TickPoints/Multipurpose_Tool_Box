@@ -1,19 +1,19 @@
 # 引言 
 API由"interface.js"文件管理，提供了一系列可以操作 多用工具包 系统的方法，为了实现接口，API使用了一种特殊的方法完成数据互通(见"./数据互通基本协议")。
 
-这种方法即是通过 <code>scriptevent</code> 命令。
+这种方法即是通过 `scriptevent` 命令。
 
 像下面这个例子:
 ```
 scriptevent toolAPI:test {"meta":{"id":"test","uuid":"",version:""},"packData":{"RequestCode":1},"otherData":{}}
 ```
-很容易就能看出后面的内容是<code>JSON.stringify()</code>后的JSON数据。通过这些东西，我们就可以完成数据包互通。
+很容易就能看出后面的内容是`JSON.stringify()`后的JSON数据。通过这些东西，我们就可以完成数据包互通。
 ## 实现
 
 由于命令有长度限制，所以当较长的数据需要传输时会出现问题，因此我们用到了下面的两个方法(他们同样在多用工具包内部使用了):
 
 ### 发送包
-```
+```js
 function sendDataPack(id, data, uuid, otherData = {}) {
     function splitStringByLength(longStr) { // 将长数据分割成多个字段
         const chunkSize = 1000; // 每个分段的长度
@@ -65,7 +65,7 @@ function _send(id, message) {
 };
 ```
 ### 获取包
-```
+```js
 mc.system.afterEvents.scriptEventReceive.subscribe(event => {
     if (event.sourceType !== "World")   // 仅对 World 类型调用使用(防止玩家意外的调用出现错误)
         parseMessage(event.id, event.message);  // 解析数据
@@ -193,10 +193,10 @@ _Tip:上面内容使用了 point.js，但省略了导入过程_
 ## 协议基本
 在多用工具包中使用数据互通时必须遵守以下规则:
 
-1. 数据包应该包括<code>meta</code>(元数据)，<code>packData</code>(传递的主要数据)，<code>otherData</code>(其他数据)
+1. 数据包应该包括`meta`(元数据)，`packData`(传递的主要数据)，`otherData`(其他数据)
 
 2. meta应包括以下内容:
-```
+```JSON
 {
     "uuid": "",  // Uuid(我们不通过uuid来区分每个包，uuid应该是包自己需要使用的内容)，当进行操作有返回数据时，将通过`${meta.id}:${entry}`来作为 scriptevent 的命令，如需要接收返回数据，应该订阅这个命名空间
     "id": "",   // 这个是用来区分每个包的，如进行的操作需要用到高级的系统权限时，都会使用到这一部分来区分您的包
@@ -208,7 +208,7 @@ _Tip:上面内容使用了 point.js，但省略了导入过程_
 
 ## 阅读接口文档
 当调用接口时需要传递一些参数，这些参数在文档中以 "参数" 展示，如下:
-```
+```JSON
 {
     "RequestCode": "number"
 }
@@ -217,7 +217,7 @@ _Tip:上面内容使用了 point.js，但省略了导入过程_
 
 其中，键名对应着需要的参数名，键值对应着参数的类型(参数的类型是 typeof 返回的)，所以上面的参数需要传递像下面的这个包:
 
-```
+```JSON
 {
     "RequestCode": 0
 }
@@ -227,7 +227,7 @@ _Tip:上面内容使用了 point.js，但省略了导入过程_
 最后则是返回包，如果没有返回包，返回包的部分则为Void，有的话则类似于下面这个:
 
 
-```
+```JSON
 {
     "ReturnCode": "number"
 }

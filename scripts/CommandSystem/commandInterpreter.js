@@ -386,6 +386,12 @@ function reload() {
                 "RequiredPermission": 5,
                 "needPermission": true
             }
+        },
+        "menu": {
+            "type": "function",
+            "run": function(performer) {
+                tool.giveItemStack(performer, new mc.ItemStack("tool:menu"));
+            }
         }
     };
 };

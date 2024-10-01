@@ -172,7 +172,8 @@ class User {
                 }
             };
             let pack = User.PluginUser.loadingUserMap[packId];
-            if (pack === undefined) pack = {};
+            if (pack === undefined) User.PluginUser.loadingUserMap[packId] = {};
+            pack = User.PluginUser.loadingUserMap[packId];
             pack[id] = this;
         };
         sendMail(user, mail, uuid = tool.generateUUID()) {

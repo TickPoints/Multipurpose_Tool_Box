@@ -246,7 +246,6 @@ let interfaceData = {
         "needData": {
             "UserId": "string"
         },
-        "experiment": true,
         "returnPack": {
             "result": [{
                 "type": "Pass",
@@ -263,10 +262,9 @@ let interfaceData = {
     "user.PluginUser.sendMail": {
         "needData": {
             "UserId": "string",
-            "TargetUser": "obj",
+            "TargetUser": "object",
             "Mail": "string"
         },
-        "experiment": true,
         "returnPack": {
             "result": [{
                 "type": "Pass",
@@ -286,6 +284,26 @@ let interfaceData = {
                 "Mail": "邮件文本"
             },
             "function": "使插件用户向目标用户发送邮件"
+        }
+    },
+    "user.User.isAvailable": {
+        "needData": {
+            "UserData": "object"
+        },
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "UserData is invalid."
+            }]
+        },
+        "description": {
+            "needData": {
+                "UserData": "需要判定的用户数据"
+            },
+            "function": "判断用户数据是否符合要求"
         }
     },
     "System.commandSystem.registr": {

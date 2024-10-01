@@ -275,16 +275,24 @@ function pathToObjectRef(obj, pathStr) {
 };
 
 function parseUser(data) {
-    switch (type) {
+    if (data.type === undefined) return null;
+    switch (data.type) {
         case "Plugin":
+            if (data.packId === undefined) return null;
+            if (data.UserId === undefined) return null;
             return User.PluginUser.getUser(data.packId, data.UserId);
         case "System":
             return SystemUser;
         case "General":
+            if (data.General === undefined) return null;
+            let General = data.General;
+            if (General.method === undefined) return null;
             switch (General.method) {
                 case "name":
+                    if (General.name === undefined) return null;
                     return User.getUser(General.name, "name");
                 case "bind":
+                    if (General.playerName === undefined) return null;
                     return User.getUser(tool.nameToPlayer(General.playerName));
                 default:
                     return null;
@@ -475,7 +483,6 @@ const _Interface = {
     },
     "user.PluginUser.new": {
         "func": function(data, meta) {
-            // 实验性 Experiment
             let user = new User.PluginUser(meta.id, data.UserId);
             sendResult(meta.uuid, "Load Pass.", "Pass");
         },
@@ -485,24 +492,35 @@ const _Interface = {
     },
     "user.PluginUser.sendMail": {
         "func": function(data, meta) {
-            // 实验性 Experiment
             let user = User.PluginUser.getUser(meta.id, data.UserId);
             if (user === null) {
                 sendResult(meta.uuid, "UserData not found.", "Error");
                 return;
             };
-            let targetUser = parseUser(TargetUser);
+            let targetUser = parseUser(data.TargetUser);
             if (targetUser === null) {
                 sendResult(meta.uuid, "TargetUserData not found.", "Error");
                 return;
             };
-            user.sendMail(targetUser, data.mail, data.UUID);
+            user.sendMail(targetUser, data.Mail, data.UUID);
             sendResult(meta.uuid, "Load Pass.", "Pass");
         },
         "needData": {
             "UserId": "string",
-            "TargetUser": "obj",
+            "TargetUser": "object",
             "Mail": "string"
+        }
+    },
+    "user.User.isAvailable": {
+        "func": function(data, meta) {
+            if (parseUser(data.UserData) === null) {
+                sendResult(meta.uuid, "UserData is invalid.", "Error");
+            } else {
+                sendResult(meta.uuid, "Load Pass.", "Pass");
+            };
+        },
+        "needData": {
+            "UserData": "object"
         }
     },
     "System.commandSystem.registr": {

@@ -320,10 +320,10 @@ let interfaceData = {
             "needData": {
                 "commands": "object"
             },
-            "function": "这是老旧的接口，安全性较低，请用`System.commandSystem.registr`。在未来，此接口将被废除"
+            "function": "注册命令"
         },
         "discard": {
-            "toUse": "`System.commandSystem.registr`"
+            "toUse": "System.commandSystem.registr"
         }
     },
     "System.commandSystem.translationMap.add": {
@@ -345,8 +345,9 @@ let interfaceData = {
                 "value": "translationMap的设定值",
                 "id": "translationMap的Id"
             },
-            "function": "添加一组 translationMap"
-        }
+            "function": "添加一组 translationMap\n\n_Tip: `translationMap` 现已被删除_"
+        },
+        "discard": {}
     },
     "System.commandSystem.translationMap.set": {
         "needData": {
@@ -365,8 +366,9 @@ let interfaceData = {
             "needData": {
                 "value": "重设后的translationMap"
             },
-            "function": "将已有的 translationMap 全部覆盖重设(这包括系统自带)"
-        }
+            "function": "将已有的 translationMap 全部覆盖重设(这包括系统自带)\n\n_Tip: `translationMap` 现已被删除_"
+        },
+        "discard": {}
     },
     "System.config.get": {
         "needData": {

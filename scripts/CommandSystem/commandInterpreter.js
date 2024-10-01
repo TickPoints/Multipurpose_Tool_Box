@@ -72,10 +72,12 @@ function configureParser(config, parameters, performer, tipSource) {
                 };
                 break;
             case "entity":
+                var entity;
                 try {
                     entity = mc.world.getEntity(parameters[i]);
                 } catch {
-                    tool.printErr((tool.translationf(debugMes.configureParser.parameters.type.input.error, parameters[i], parameters[i - 1], parameters[i + 1]) + debugMes.configureParser.parameters.type.input.player), "Debug", tipSource, performer);
+                    console.error(e, e.stack)
+                    tool.printErr((tool.translationf(debugMes.configureParser.parameters.type.input.error, parameters[i], parameters[i - 1], parameters[i + 1]) + debugMes.configureParser.parameters.type.input.entity), "Debug", tipSource, performer);
                     return -1;
                 };
                 if (config.parameters[i].translation === true) {
@@ -83,7 +85,7 @@ function configureParser(config, parameters, performer, tipSource) {
                 };
                 break;
             case "player":
-                let entity;
+                var entity;
                 try {
                     entity = mc.world.getEntity(parameters[i]);
                 } catch {
@@ -205,18 +207,6 @@ function run(command, performer = mc.world) {
     };
 };
 
-let translationMap = {
-    "\\n": "\n"
-};
-
-function translation(str) {
-    let string = tool.deepClone(str);
-    for (let i of Object.keys(translationMap)) {
-        string = string.replace(i, translationMap[i]);
-    };
-    return string;
-};
-
 function parseCommand(performer, com, subcommand = []) {
     let command;
 
@@ -259,7 +249,7 @@ function parseCommand(performer, com, subcommand = []) {
                     subcommand.push(com.substring(pop.key + 2, charValue));
                     return parseCommand(performer, newCommand, subcommand);
                 } else if (pop.value === "(") {
-                    newCommand = substitution(com, parseCommand(performer, com.substring(pop.key + 1, charValue)), pop.key, charValue + 1);
+                    newCommand = substitution(com, parseCommand(performer, com.substring(pop.key + 1, charValue), subcommand), pop.key, charValue + 1);
                     return parseCommand(performer, newCommand, subcommand);
                 };
             };
@@ -271,7 +261,6 @@ function parseCommand(performer, com, subcommand = []) {
         if (command[i].substring(0, 8) === "command.") {
             command[i] = subcommand[+command[i].substring(8)];
         };
-        command[i] = translation(command[i]);
     };
     return run(command, performer);
 };
@@ -386,6 +375,12 @@ function reload() {
                 "RequiredPermission": 5,
                 "needPermission": true
             }
+        },
+        "menu": {
+            "type": "function",
+            "run": function(performer) {
+                tool.giveItemStack(performer, new mc.ItemStack("tool:menu"));
+            }
         }
     };
 };
@@ -397,6 +392,5 @@ export {
     run,
     interpreter,
     reload,
-    parseCommand,
-    translationMap
+    parseCommand
 };

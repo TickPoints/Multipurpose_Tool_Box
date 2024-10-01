@@ -1,5 +1,5 @@
 # 基本
-_Tip:User对象解析是<code>API</code>的内容_
+_Tip:User对象解析是[API](../API.md)的内容_
 ```
 {
     "type": "string",
@@ -14,9 +14,11 @@ _Tip:User对象解析是<code>API</code>的内容_
 ```
 ## type
 User对象类型。
-* <code>Plugin</code>: <code>PluginUser</code>(同时需要<code>packId</code>和<code>UserId</code>)
-* <code>System</code>: <code>SystemUser</code>
-* <code>General</code>: 一般用户(同时需要<code>General</code>)
+|名称|注释|
+|:---:|:---:|
+|`Plugin`|`PluginUser`(同时需要`packId`和`UserId`)|
+|`System`|`SystemUser`|
+|`General`|一般用户(同时需要`General`)|
 
 ## packId
 创建的 PluginUser 所属的插件包Id。
@@ -27,8 +29,8 @@ User对象类型。
 ## General
 ### method
 获取方法。
-* <code>name</code>: 通过名称获取(同时需要<code>name</code>)
-* <code>bind</code>: 通过绑定的玩家获取(同时需要<code>playerName</code>)
+* `name`: 通过名称获取(同时需要`name`)
+* `bind`: 通过绑定的玩家获取(同时需要`playerName`)
 ### name
 用户名。(可获取到"一般用户"和"SystemUser"但无法获得"PluginUser")
 ### playerName

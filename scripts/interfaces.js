@@ -524,33 +524,6 @@ const _Interface = {
             "commands": "object"
         }
     },
-    "System.commandSystem.translationMap.add": {
-        "func": function(data, meta) {
-            if (!config.systemPlugins.includes(meta.id)) {
-                sendResult(meta.uuid, "No system level permission.", "Error");
-                return;
-            };
-            commandSystem.translationMap[data.id] = data.value;
-            sendResult(meta.uuid, "Load Pass.", "Pass");
-        },
-        "needData": {
-            "value": "string",
-            "id": "string"
-        }
-    },
-    "System.commandSystem.translationMap.set": {
-        "func": function(data, meta) {
-            if (!config.systemPlugins.includes(meta.id)) {
-                sendResult(meta.uuid, "No system level permission.", "Error");
-                return;
-            };
-            commandSystem.translationMap = data.value;
-            sendResult(meta.uuid, "Load Pass.", "Pass");
-        },
-        "needData": {
-            "value": "object"
-        }
-    },
     "System.config.get": {
         "func": function(data, meta) {
             // 实验性 Experiment

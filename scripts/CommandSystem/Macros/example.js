@@ -56,7 +56,7 @@ export const MacroData = [
             -temp_points
         )
         -(&runGameCommand
-            -summon minecraft:armor_stand/S(json -list -getChild -&index -0)/S-60/S(json -list -getChild -&index -1)
+            -summon minecraft:armor_stand\\S(json -list -getChild -&index -0)\\S-60\\S(json -list -getChild -&index -1)
         )`,
     "sendMessage -OK -(getEntity -self)"
 ]

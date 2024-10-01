@@ -11,7 +11,7 @@ function rankJSON(jsonObj) {
 function generateDocumentData(name, data) {
     let tip = "";
     if (data.discard !== undefined) {
-        tip += "Tip: 已弃用";
+        tip += "Tip: 已弃用\n";
         if (data.discard.toUse !== undefined) tip += `尝试改用\`${data.discard.toUse}\`\n`;
     };
     if (data.experiment) tip += "_Tip: 实验中，在未来的版本中可能删除或做过多修改_\n";

@@ -1,4 +1,5 @@
-Tip: 已弃用尝试改用`System.commandSystem.registr`
+Tip: 已弃用
+尝试改用`System.commandSystem.registr`
 _Tip: 实验中，在未来的版本中可能删除或做过多修改_
 # 参数
 ```

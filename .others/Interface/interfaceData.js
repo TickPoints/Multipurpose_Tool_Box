@@ -345,8 +345,9 @@ let interfaceData = {
                 "value": "translationMap的设定值",
                 "id": "translationMap的Id"
             },
-            "function": "添加一组 translationMap"
-        }
+            "function": "添加一组 translationMap\n\n_Tip: `translationMap` 现已被删除_"
+        },
+        "discard": {}
     },
     "System.commandSystem.translationMap.set": {
         "needData": {
@@ -365,8 +366,9 @@ let interfaceData = {
             "needData": {
                 "value": "重设后的translationMap"
             },
-            "function": "将已有的 translationMap 全部覆盖重设(这包括系统自带)"
-        }
+            "function": "将已有的 translationMap 全部覆盖重设(这包括系统自带)\n\n_Tip: `translationMap` 现已被删除_"
+        },
+        "discard": {}
     },
     "System.config.get": {
         "needData": {

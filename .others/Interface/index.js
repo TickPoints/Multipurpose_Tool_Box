@@ -25,7 +25,7 @@ function generateInterfacesDocumentData(name, data) {
     functionTip += data.description.function;
     let returnPackTip = "# 返回包\n下面给出包不一定都存在，视情况有所变动\n\n";
     for (let i of Object.keys(rankJSON(data.returnPack))) {
-        returnPackTip += `## ${i}\nId: ${i}\n\n\`\`\`\n\n`;
+        returnPackTip += `## ${i}\nId: \`${i}\`\n\n\`\`\`\n\n`;
         for (let j of data.returnPack[i]) {
             returnPackTip += `${JSON.stringify(rankJSON(j), null, 4)}\n\n`;
         };

@@ -21,10 +21,10 @@ User对象类型。
 |`General`|一般用户(同时需要`General`)|
 
 ## packId
-创建的 PluginUser 所属的插件包Id。
+创建的 `PluginUser` 所属的插件包Id。
 
 ## UserId
-创建的 PluginUser 本身Id。
+创建的 `PluginUser` 本身Id。
 
 ## General
 ### method
@@ -32,6 +32,6 @@ User对象类型。
 * `name`: 通过名称获取(同时需要`name`)
 * `bind`: 通过绑定的玩家获取(同时需要`playerName`)
 ### name
-用户名。(可获取到"一般用户"和"SystemUser"但无法获得"PluginUser")
+用户名。(可获取到`一般用户`和`SystemUser`但无法获得`PluginUser`)
 ### playerName
-绑定的玩家名。(只可获取到"一般用户")
+绑定的玩家名。(只可获取到`一般用户`)

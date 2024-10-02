@@ -9,7 +9,8 @@ import "./loader.js";
 import {
     data,
     debugMes,
-    UDText
+    UDText,
+    LicenseText
 }
 from "./data.js";
 
@@ -51,7 +52,8 @@ const aboutUi = new ui.ActionFormData()
     .body(data.about.ui.body)
     .button(data.about.ui.button[0].name, data.about.ui.button[0].image)
     .button(data.about.ui.button[1].name, data.about.ui.button[1].image)
-    .button(data.about.ui.button[2].name, data.about.ui.button[2].image);
+    .button(data.about.ui.button[2].name, data.about.ui.button[2].image)
+    .button(data.about.ui.button[3].name, data.about.ui.button[3].image);
 const builtInToolUi = new ui.ActionFormData()
     .title(data.builtIn.ui.title)
     .body(data.builtIn.ui.body)
@@ -135,7 +137,28 @@ function UDUiShow(player) {
         });
 };
 
+function LicenseUiShow(player) {
+    EventEngine.trigger("LicenseUiShowed", {
+        "sourceName": player.name
+    });
+    const LicenseUi = new ui.MessageFormData()
+        .title(data.License.ui.title)
+        .body(LicenseText)
+        .button1(data.License.ui.button[0])
+        .button2(data.License.ui.button[1]);
+    LicenseUi.show(player)
+        .then(r => {
+            if (r.selection === 1) {
+                aboutUiShow(player);
+            };
+            return;
+        });
+};
+
 function commandSystemUiShow(player) {
+    EventEngine.trigger("commandSystemUiShowed", {
+        "sourceName": player.name
+    });
     let commandSystemUi = new ui.ModalFormData()
         .title(data.commandSystem.ui.title)
         .textField(data.commandSystem.ui.textField[0].name, data.commandSystem.ui.textField[0].text)
@@ -223,9 +246,12 @@ function aboutUiShow(player) {
                     UDUiShow(player);
                     break;
                 case 1:
-                    commandSystemUiShow(player);
+                    LicenseUiShow(player);
                     break;
                 case 2:
+                    commandSystemUiShow(player);
+                    break;
+                case 3:
                     if (!User.getUser(player).reachLevel(5)) {
                         tool.printErr(debugMes.hopUiErr, "Warn", data.infoSource, player);
                         return;

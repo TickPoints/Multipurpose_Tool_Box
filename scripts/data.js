@@ -28,7 +28,10 @@ const data = {
             body: "查看有关的选项",
             button: [{
                 name: "使用文档",
-                image: path + "ui/recipe_book_icon" // Old:path + "ui/text_color_paintbrush_overlay"
+                image: path + "ui/recipe_book_icon"
+            }, {
+                name: "查看许可证",
+                image: path + "ui/text_color_paintbrush_overlay"
             }, {
                 name: "命令",
                 image: path + "blocks/command_block"
@@ -227,6 +230,15 @@ const data = {
             }]
         }
     },
+    License: {
+        ui: {
+            title: "许可证",
+            button: [
+                "我已知晓",
+                "返回"
+            ]
+        }
+    },
     version: {
         mode: "stable", // stable or experiment
         code: "0.1.70",
@@ -281,10 +293,13 @@ const debugMes = {
     }
 };
 
-var UDText = `欢迎使用 多用工具箱，本工具箱本身是一个管理系统，仅有少量功能，通过注册的方式，就可以使本工具管理这些插件\n您可以通过一个tool:menu来打开菜单，用/function getHighestOP来获得最高管理\n多用工具箱 提供了一个完善的环境，功能注册，配置，命令，用户系统以及配套API工具，免去了开发者对这些功能的复杂开发。\n本包以GPL3.0.0/later协议开源，但只有直接自本包获取代码并做修改的受GPL协议限制，为本包制作插件或在其它处展示本包功能的不受GPL协议约束请放心使用。\n最后感谢您的使用\n\n版本:${data.version.code}(${data.version.mode})\n作者:TickPoints`;
+let UDText = `欢迎使用 多用工具箱，本工具箱本身是一个管理系统，仅有少量功能，通过注册的方式，就可以使本工具管理这些插件\n您可以通过一个tool:menu来打开菜单，用/function getHighestOP来获得最高管理\n多用工具箱 提供了一个完善的环境，功能注册，配置，命令，用户系统以及配套API工具，免去了开发者对这些功能的复杂开发。\n本包以GPL3.0.0/later协议开源，但只有直接自本包获取代码并做修改的受GPL协议限制，为本包制作插件或在其它处展示本包功能的不受GPL协议约束请放心使用。\n最后感谢您的使用\n\n版本:${data.version.code}(${data.version.mode})\n作者:TickPoints`;
+
+let LicenseText = "Multipurpose tool box provides a complete environment, including function registration, configuration, command, user system and supporting API tools, eliminating the complex development of these functions by developers, so that developers can operate more conveniently.\nCopyright (C) 2024  TickPoints\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\nYou should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>."
 
 export {
     data,
     debugMes,
-    UDText
+    UDText,
+    LicenseText
 };

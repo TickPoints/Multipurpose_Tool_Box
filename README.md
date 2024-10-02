@@ -82,15 +82,15 @@ A:这里的配置包括主包配置和副包配置，副包配置，一般副包
 
 1. 打开之后应该能看到以下内容:
 ```javascript
-    export const config = {
-        "test": "这是段测试文本一般不出现在config中，仅用于帮助您理解",
-        "dp": {
-            "switch": true,
-            "test": null // 这里是注释
-            // ……
-        },
+export const config = {
+    "test": "这是段测试文本一般不出现在config中，仅用于帮助您理解",
+    "dp": {
+        "switch": true,
+        "test": null // 这里是注释
         // ……
-    };
+    },
+    // ……
+};
 ```
 上面这一段并非真正的config，仅用于帮助您进行理解修改
 

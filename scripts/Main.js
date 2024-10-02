@@ -533,7 +533,7 @@ async function IncomingMailUiShow(player) {
         operationUi.body(tool.translationf(data.builtIn.mailServices.IncomingMail.operationUi.body, mail.SourceName, mail.TargetName, mail.Message, mail.Date, mail.Uuid));
         operationUi.show(player).then(r => {
             if (r.canceled) {
-                handleMailServices(player);
+                IncomingMailUiShow(player);
                 return;
             };
             switch (r.selection) {

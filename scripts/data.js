@@ -278,10 +278,6 @@ const debugMes = {
             objectTypeError: "Id 为 %%1 的插件: 接口的调用错误: 需要使用的对象 %%2 类型错误，应该为 %%3",
             notFound: "Id 为 %%1 的插件: 接口的调用错误: 其调用的接口 %%2 不存在"
         }
-    },
-    commandSystem: {
-        commandRegTip: "Id 为 %%s 的插件，将一些命令注册到了命令系统中",
-        setRuncmdJobWarn: "id为 %%s 的插件调用了 toolAPI:setRuncmdJob 修改了命令执行器的运行逻辑"
     }
 };
 

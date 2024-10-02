@@ -388,6 +388,26 @@ let interfaceData = {
         },
         "discard": {}
     },
+    "System.commandSystem.setRunCmdJob": {
+        "needData": {
+            "jobData": "string"
+        },
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "No system level permission."
+            }]
+        },
+        "description": {
+            "needData": {
+                "jobData": "要修改的runcmd函数的.toString()形式"
+            },
+            "function": "修改runcmd方法\n\n不要直接尝试去调用外部的方法，那是危险的，此方法的危险性极高，可能会破坏系统安全"
+        }
+    },
     "System.config.get": {
         "needData": {
             "path": "string"
@@ -460,4 +480,83 @@ let interfaceData = {
     }
 }
 
+let eventList = {
+    "UDUiShowed": {
+        "description": {
+            "data": {
+                "sourceName": "`UDUi`展示给的玩家名称"
+            },
+            "function": "有关`UDUi`展示的事件"
+        }
+    },
+    "SettingUiShowed": {
+        "description": {
+            "data": {
+                "sourceName": "`SettingUi`展示给的玩家名称"
+            },
+            "function": "有关`SettingUi`展示的事件"
+        }
+    },
+    "OPUiShowed": {
+        "description": {
+            "data": {
+                "sourceName": "`OPUi`展示给的玩家名称"
+            },
+            "function": "有关`OPUi`展示的事件"
+        }
+    },
+    "ToolUiShowed": {
+        "description": {
+            "data": {
+                "sourceName": "`ToolUi`展示给的玩家名称"
+            },
+            "function": "有关`ToolUi`展示的事件"
+        }
+    },
+    "aboutUiShowed": {
+        "description": {
+            "data": {
+                "sourceName": "`aboutUi`展示给的玩家名称"
+            },
+            "function": "有关`aboutUi`展示的事件"
+        }
+    },
+    "builtInToolUiShowed": {
+        "description": {
+            "data": {
+                "sourceName": "`builtInToolUi`展示给的玩家名称"
+            },
+            "function": "有关`builtInToolUi`展示的事件"
+        }
+    },
+    "PluginUserBeCreated": {
+        "description": {
+            "data": {
+                "source": "创建插件用户的包的`meta`数据",
+                "UserId": "被创建的插件用户的ID"
+            },
+            "function": "有关创建插件用户的事件"
+        }
+    },
+    "commandReg": {
+        "description": {
+            "data": {
+                "source": "注册命令的包的`meta`数据",
+                "commands": "注册的所有命令数据"
+            },
+            "function": "有关命令注册的事件"
+        }
+    },
+    "runCmdJobBeSet": {
+        "description": {
+            "data": {
+                "source": "修改`runCmdJob`的包的`meta`数据",
+                "jobData": "`runCmdJob`设置的原始数据"
+            },
+            "function": "有关`runCmdJob`设置的事件"
+        }
+    }
+}
+
 module.exports.interfaceData = interfaceData;
+module.exports.eventList = eventList;

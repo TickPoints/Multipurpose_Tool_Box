@@ -485,6 +485,10 @@ const _Interface = {
         "func": function(data, meta) {
             let user = new User.PluginUser(meta.id, data.UserId);
             sendResult(meta.uuid, "Load Pass.", "Pass");
+            EventEngine.trigger("PluginUserBeCreated", {
+                "source": meta,
+                "UserId": data.UserId
+            });
         },
         "needData": {
             "UserId": "string"
@@ -531,7 +535,6 @@ const _Interface = {
             };
             commandSystemReg.push(data.commands);
             commandSystemRegReload();
-            tool.printErr(tool.translationf(debugMes.commandSystem.commandRegTip, meta.id), "Info", meta.name);
             EventEngine.trigger("commandReg", {
                 "source": meta,
                 "commands": data.commands
@@ -540,6 +543,25 @@ const _Interface = {
         },
         "needData": {
             "commands": "object"
+        }
+    },
+    "System.commandSystem.setRunCmdJob": {
+        "func": function(data, meta) {
+            // 实验性 Experiment
+            if (!config.systemPlugins.includes(meta.id)) {
+                sendResult(meta.uuid, "No system level permission.", "Error");
+                return;
+            };
+            // 污染警告 Pollution Warning
+            runcmd = eval(data.jobData);
+            EventEngine.trigger("runCmdJobBeSet", {
+                "source": meta,
+                "jobData": data.jobData
+            });
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "jobData": "string"
         }
     },
     "System.config.get": {

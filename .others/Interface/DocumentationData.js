@@ -297,9 +297,6 @@ let interfaceData = {
                 "message": "Load Pass"
             }, {
                 "type": "Error",
-                "message": "TargetUserData not found."
-            }, {
-                "type": "Error",
                 "message": "UserData not found."
             }],
             "userData": [{
@@ -311,6 +308,77 @@ let interfaceData = {
                 "UserId": "已创建的插件用户ID"
             },
             "function": "获取插件用户的数据\n\n[插件用户数据库结构](../用户系统.md#插件用户)"
+        }
+    },
+    "user.PluginUser.addLog": {
+        "needData": {
+            "UserId": "string",
+            "LogName": "string",
+            "LogMessage": "string"
+        },
+        "experiment": true,
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "UserData not found."
+            }]
+        },
+        "description": {
+            "needData": {
+                "UserId": "已创建的插件用户ID",
+                "LogName": "需添加的日志名称",
+                "LogMessage": "需添加的日志记录信息"
+            },
+            "function": "使用插件用户记录日志"
+        }
+    },
+    "user.PluginUser.setName": {
+        "needData": {
+            "UserId": "string",
+            "name": "string"
+        },
+        "experiment": true,
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "UserData not found."
+            }]
+        },
+        "description": {
+            "needData": {
+                "UserId": "已创建的插件用户ID",
+                "name": "需设置的名称"
+            },
+            "function": "重设插件用户的名称"
+        }
+    },
+    "user.PluginUser.setData": {
+        "needData": {
+            "UserId": "string",
+            "data": "object"
+        },
+        "experiment": true,
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "UserData not found."
+            }]
+        },
+        "description": {
+            "needData": {
+                "UserId": "已创建的插件用户ID",
+                "data": "需设置的用户数据"
+            },
+            "function": "_Tip: 这是危险的_\n\n它可以重设插件用户内部的所有数据，甚至可能导致插件用户无法使用，为了安全考虑，您可以先读取(使用`user.Plugin.getData`)再在读取的数据上进行更改"
         }
     },
     "user.User.isAvailable": {

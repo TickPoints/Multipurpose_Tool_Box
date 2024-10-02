@@ -530,6 +530,55 @@ const _Interface = {
             "UserId": "string"
         }
     },
+    "user.PluginUser.addLog": {
+        "func": function(data, meta) {
+            // 实验性 Experiment
+            let user = User.PluginUser.getUser(meta.id, data.UserId);
+            if (user === null) {
+                sendResult(meta.uuid, "UserData not found.", "Error");
+                return;
+            };
+            user.addLog(data.LogName, data.LogMessage);
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "UserId": "string",
+            "LogName": "string",
+            "LogMessage": "string"
+        }
+    },
+    "user.PluginUser.setName": {
+        "func": function(data, meta) {
+            // 实验性 Experiment
+            let user = User.PluginUser.getUser(meta.id, data.UserId);
+            if (user === null) {
+                sendResult(meta.uuid, "UserData not found.", "Error");
+                return;
+            };
+            user.data.name = data.name;
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "UserId": "string",
+            "name": "string"
+        }
+    },
+    "user.PluginUser.setData": {
+        "func": function(data, meta) {
+            // 实验性 Experiment
+            let user = User.PluginUser.getUser(meta.id, data.UserId);
+            if (user === null) {
+                sendResult(meta.uuid, "UserData not found.", "Error");
+                return;
+            };
+            user.data = data.data;
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "UserId": "string",
+            "data": "object"
+        }
+    },
     "user.User.isAvailable": {
         "func": function(data, meta) {
             if (parseUser(data.UserData) === null) {

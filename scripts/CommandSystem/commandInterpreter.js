@@ -379,7 +379,8 @@ function reload() {
         "menu": {
             "type": "function",
             "run": function(performer) {
-                tool.giveItemStack(performer, new mc.ItemStack("tool:menu"));
+                tool.giveItem(performer, new mc.ItemStack("tool:menu"));
+                tool.printErr(debugMes.gettingMenuPrompt, "Info", data.tipSource, performer);
             }
         }
     };

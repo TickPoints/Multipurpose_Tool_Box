@@ -515,6 +515,21 @@ const _Interface = {
             "Mail": "string"
         }
     },
+    "user.PluginUser.getData": {
+        "func": function(data, meta) {
+            // 实验性 Experiment
+            let user = User.PluginUser.getUser(meta.id, data.UserId);
+            if (user === null) {
+                sendResult(meta.uuid, "UserData not found.", "Error");
+                return;
+            };
+            sendDataPack(`${meta.uuid}:userData`, user.getData());
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "UserId": "string"
+        }
+    },
     "user.User.isAvailable": {
         "func": function(data, meta) {
             if (parseUser(data.UserData) === null) {

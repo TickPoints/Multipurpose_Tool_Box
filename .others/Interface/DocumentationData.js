@@ -286,6 +286,33 @@ let interfaceData = {
             "function": "使插件用户向目标用户发送邮件"
         }
     },
+    "user.PluginUser.getData": {
+        "needData": {
+            "UserId": "string"
+        },
+        "experiment": true,
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "TargetUserData not found."
+            }, {
+                "type": "Error",
+                "message": "UserData not found."
+            }],
+            "userData": [{
+                "?": "详见`插件用户数据库结构`"
+            }]
+        },
+        "description": {
+            "needData": {
+                "UserId": "已创建的插件用户ID"
+            },
+            "function": "获取插件用户的数据\n\n[插件用户数据库结构](../用户系统.md# 插件用户)"
+        }
+    },
     "user.User.isAvailable": {
         "needData": {
             "UserData": "object"

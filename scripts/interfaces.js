@@ -591,6 +591,44 @@ const _Interface = {
             "UserData": "object"
         }
     },
+    "System.UserSystem.ProxyAction": {
+        "func": function(data, meta) {
+            // 实验性 Experiment
+            if (!config.systemPlugins.includes(meta.id)) {
+                sendResult(meta.uuid, "No system level permission.", "Error");
+                return;
+            };
+            let user = parseUser(data.User);
+            if (user === null) {
+                sendResult(meta.uuid, "UserData not found.", "Error");
+                return;
+            };
+            let returnValue = "";
+            try {
+                returnValue = user[data.OperationName](...data.OperationParameters);
+                sendDataPack(`${meta.uuid}:return`, {
+                    "returnValue": returnValue
+                });
+            } catch(e) {
+                sendDataPack(`${meta.uuid}:error`, {
+                    "error": e
+                });
+                return;
+            };
+            EventEngine.trigger("UserProxyAction", {
+                "source": meta,
+                "returnValue": returnValue,
+                "OperationName": data.OperationName,
+                "OperationParameters": data.OperationParameters
+            });
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "User": "object",
+            "OperationName": "string",
+            "OperationParameters": "object"
+        }
+    },
     "System.commandSystem.registr": {
         "func": function(data, meta) {
             if (!config.systemPlugins.includes(meta.id)) {

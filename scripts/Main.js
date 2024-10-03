@@ -435,6 +435,8 @@ function worldInitialize(event) {
     if (SystemUser === null) {
         UserDataReset.resetSystemUser();
     };
+    // ↓这是个人调试时使用的
+    // UserDataReset.resetPlayerUser(mc.world.getAllPlayers()[0]);
 };
 
 // UserData重置
@@ -511,25 +513,38 @@ async function SendMailUIShow(player) {
 async function IncomingMailUIShow(player) {
     let IncomingMailUI = new ui.ActionFormData()
         .title(data.builtIn.mailServices.IncomingMail.ui.title)
-        .body(data.builtIn.mailServices.IncomingMail.ui.body);
+        .body(data.builtIn.mailServices.IncomingMail.ui.body)
+        .button(data.builtIn.mailServices.IncomingMail.ui.buttons[0].name, data.builtIn.mailServices.IncomingMail.ui.buttons[0].image);
     let operationUI = new ui.ActionFormData()
         .title(data.builtIn.mailServices.IncomingMail.operationUI.title)
         .button(data.builtIn.mailServices.IncomingMail.operationUI.button[0].name, data.builtIn.mailServices.IncomingMail.operationUI.button[0].image)
         .button(data.builtIn.mailServices.IncomingMail.operationUI.button[1].name, data.builtIn.mailServices.IncomingMail.operationUI.button[1].image);
     let mailbox = User.getUser(player).getData("mailbox").box.receive;
-    if (mailbox.length === 0) {
+    /*if (mailbox.length === 0) {
         tool.printErr(data.builtIn.mailServices.IncomingMail.tip, "Info", data.builtIn.mailServices.source, player);
         return;
     };
+    旧版本无邮件时所给出的提示
+    */
     for (let i of mailbox) {
         IncomingMailUI.button(tool.translationf(data.builtIn.mailServices.IncomingMail.ui.button, i.SourceName, i.Uuid));
     };
-    IncomingMailUI.show(player).then(r => {
+    IncomingMailUI.show(player).then(async r => {
         if (r.canceled) {
             handleMailServices(player);
             return;
         };
-        let mail = mailbox[r.selection];
+        if (r.selection === 0) {
+            let result = await askUIShow(player, data.builtIn.mailServices.IncomingMail.clear.title, data.builtIn.mailServices.IncomingMail.clear.body);
+            if (result) {
+                mailbox = User.getUser(player).getData("mailbox");
+                mailbox.box.receive = [];
+                User.getUser(player).setData("mailbox", mailbox);
+            };
+            IncomingMailUIShow(player);
+            return;
+        };
+        let mail = mailbox[r.selection - 1]; // 减1以选中实际的邮件
         operationUI.body(tool.translationf(data.builtIn.mailServices.IncomingMail.operationUI.body, mail.SourceName, mail.TargetName, mail.Message, mail.Date, mail.Uuid));
         operationUI.show(player).then(r => {
             if (r.canceled) {

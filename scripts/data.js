@@ -132,7 +132,11 @@ const data = {
                 ui: {
                     title: "收件箱",
                     body: "浏览您的邮件",
-                    button: "来自 %%1 的邮件(%%2)"
+                    button: "来自 %%1 的邮件(%%2)",  // 邮件选择按钮
+                    buttons: [{ // 功能性按钮
+                        name: "清空邮件箱",
+                        image: ""
+                    }]
                 },
                 operationUI: {
                     title: "邮件",
@@ -145,7 +149,10 @@ const data = {
                         image: ""
                     }]
                 },
-                tip: "邮箱为空"
+                clear: {    // 清空邮件相功能相关
+                    title: "清空您的邮件箱?",
+                    body: "您确定要清空您的邮件箱吗?"
+                }
             },
             source: "mailServices"
         },

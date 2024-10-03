@@ -401,6 +401,40 @@ let interfaceData = {
             "function": "判断用户数据是否符合要求"
         }
     },
+    "System.UserSystem.ProxyAction": {
+        "needData": {
+            "User": "object",
+            "OperationName": "string",
+            "OperationParameters": "object"
+        },
+        "experiment": true,
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "UserData not found."
+            }, {
+                "type": "Error",
+                "message": "No system level permission."
+            }],
+            "return": [{
+                "returnValue": "<执行后的返回值>"
+            }],
+            "error": [{
+                "error": "<执行时报出的错误>"
+            }]
+        },
+        "description": {
+            "needData": {
+                "User": "一个用户解析对象",
+                "OperationName": "操作函数的名称",
+                "OperationParameters": "带给操作函数的参数(列表形式)"
+            },
+            "function": "以系统权限代理其他用户(任何形式的)，然后通过此用户所有的方法进行操作"
+        }
+    },
     "System.commandSystem.registr": {
         "needData": {
             "commands": "object"
@@ -649,6 +683,17 @@ let eventList = {
                 "jobData": "`runCmdJob`设置的原始数据"
             },
             "function": "有关`runCmdJob`设置的事件"
+        }
+    },
+    "UserProxyAction": {
+        "description": {
+            "data": {
+                "source": "进行此操作的包的`meta`数据",
+                "returnValue": "操作成功后的返回值(可能不存在)",
+                "OperationName": "当时进行的操作名称",
+                "OperationParameters": "当时传递的参数"
+            },
+            "function": "用户被代理后执行方法时所产生的事件(只有被正常执行，没有返回任何错误时有效)"
         }
     }
 }

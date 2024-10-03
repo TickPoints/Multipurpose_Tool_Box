@@ -278,12 +278,13 @@ function reload() {
             "config": {
                 "parameters": [{
                     "type": "enumeration",
-                    "enumeration": ["warn", "error"]
+                    "enumeration": ["info", "warn", "error"]
                 }, {
                     "type": "string"
                 }],
                 "RequiredPermission": 5,
-                "needPermission": true
+                "needPermission": true,
+                "description": data.descriptions.console
             }
         },
         "getEntity": {
@@ -335,7 +336,8 @@ function reload() {
                     "requirement": "select"
                 }],
                 "RequiredPermission": 3,
-                "needPermission": true
+                "needPermission": true,
+                "description": data.descriptions.getEntity
             }
         },
         "Macro": {
@@ -373,7 +375,8 @@ function reload() {
                     "type": "string"
                 }],
                 "RequiredPermission": 5,
-                "needPermission": true
+                "needPermission": true,
+                "description": data.descriptions.Macro
             }
         },
         "menu": {
@@ -381,6 +384,33 @@ function reload() {
             "run": function(performer) {
                 tool.giveItem(performer, new mc.ItemStack("tool:menu"));
                 tool.printErr(debugMes.gettingMenuPrompt, "Info", data.tipSource, performer);
+            },
+            "config": {
+                "description": data.descriptions.menu
+            }
+        },
+        "help": {
+            "type": "function",
+            "run": function(performer) {
+                let message = "\n";
+
+                function rankJSON(jsonObj) {
+                    const sortedMap = new Map(Object.entries(jsonObj).sort(([key1], [key2]) => key1.localeCompare(key2)));
+                    return Object.fromEntries(sortedMap);
+                };
+
+                for (let i of Object.keys(rankJSON(interpreter))) {
+                    let config = interpreter[i].config;
+                    if (config === undefined) {
+                        message += `${i} - [0]\n`;
+                    } else {
+                        message += `${i} - [${config.RequiredPermission ? config.RequiredPermission : 0}]${config.description ? config.description : ""}\n`
+                    }
+                };
+                tool.printErr(message, "Info", "Help", performer);
+            },
+            "config": {
+                "description": data.descriptions.help
             }
         }
     };

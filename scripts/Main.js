@@ -20,7 +20,9 @@ import {
 from "./config.js";
 
 import {
-    User
+    User,
+    updateSystemUser,
+    updatePlayerUser
 }
 from "./user.js";
 
@@ -407,11 +409,8 @@ function chatSendBeforeEvent(event) {
 
 async function playerSpawn(event) {
     let player = event.player;
+    updatePlayerUser(player);
     let playerUser = User.getUser(player);
-    if (playerUser === null) {
-        UserDataReset.resetPlayerUser(player);
-    };
-    playerUser = User.getUser(player);
     if (config.user.limitName.use && `Player-${player.name}` !== playerUser.getName()) {
         playerUser.setName(`Player-${player.name}`);
     };
@@ -431,44 +430,8 @@ async function playerSpawn(event) {
 };
 
 function worldInitialize(event) {
+    updateSystemUser(SystemUser);
     SystemUser = User.getUser(mc.world);
-    if (SystemUser === null) {
-        UserDataReset.resetSystemUser();
-    };
-    // ↓这是个人调试时使用的
-    // UserDataReset.resetPlayerUser(mc.world.getAllPlayers()[0]);
-};
-
-// UserData重置
-const UserDataReset = {
-    resetSystemUser: function() {
-        SystemUser = new User("SystemUser", 6);
-        SystemUser.bind(mc.world);
-        SystemUser.setData("has_hop", false);
-        SystemUser.setData("mailbox", {
-            "box": {
-                "receive": [],
-                "send": []
-            }
-        });
-        SystemUser.setData("log", {
-            "logs": []
-        });
-    },
-    resetPlayerUser: function(player) {
-        let playerUser = new User(`Player-${player.name}`, 1);
-        playerUser.bind(player);
-        playerUser.setData("mailbox", {
-            "box": {
-                "receive": [],
-                "send": []
-            }
-        });
-        playerUser.setData("hide_permissions_view", false);
-        playerUser.setData("viewed_update_tip", {
-            "tip": []
-        });
-    }
 };
 
 // builtInTool

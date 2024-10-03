@@ -25,7 +25,7 @@ function getDateString() {
     ];
     for (let i = 1; i < text.length + 1; i++) {
         if (message.includes(`%%${i}`)) {
-            message = message.replace(new RegExp(`%%${i}`, 'g'), text[i - 1]);
+            message = message.replace(new RegExp(`%%${i}`, "g"), text[i - 1]);
         };
     };
     return message;
@@ -49,6 +49,14 @@ class User {
         this.#level = level;
         if (this.#canBind) this.bind(this.#binding);
     };
+    getRootData() {
+        return this.#data;
+    };
+    // 仅多用工具包内部使用，不推荐插件使用
+    setRootData(data) {
+        this.#data = data;
+        if (this.#canBind) this.bind(this.#binding);
+    };
     bind(target) {
         let message = {
             "name": this.#name,
@@ -65,9 +73,6 @@ class User {
     };
     getData(name) {
         return this.#data[name];
-    };
-    getAllDatas() {
-        return this.#data;
     };
     getBinding() {
         return this.#binding;
@@ -215,6 +220,61 @@ class User {
     };
 };
 
+function deepMerge(target, source) {
+    for (const key in source) {
+        if (source.hasOwnProperty(key)) {
+            if (!target.hasOwnProperty(key) || target[key] === undefined) {
+                target[key] = source[key];
+            } else {
+                if (typeof target[key] === "object" && target[key] !== null && typeof source[key] === "object" && source[key] !== null) {
+                    deepMerge(target[key], source[key]);
+                } else {
+                    target[key] = source[key];
+                };
+            };
+        };
+    };
+    return target;
+};
+
+function updateSystemUser(SystemUser) {
+    SystemUser = new User("SystemUser", 6);
+    SystemUser.bind(mc.world);
+    const SystemUserDataSource = {
+        "mailbox": {
+            "box": {
+                "receive": [],
+                "send": []
+            }
+        },
+        "has_hop": false,
+        "log": {
+            "logs": []
+        }
+    };
+    SystemUser.setRootData(deepMerge(SystemUser.getRootData(), SystemUserDataSource));
+};
+
+function updatePlayerUser(player) {
+    let playerUser = new User(`Player-${player.name}`, 1);
+    playerUser.bind(player);
+    const PlayerUserDataSource = {
+        "mailbox": {
+            "box": {
+                "receive": [],
+                "send": []
+            }
+        },
+        "hide_permissions_view": false,
+        "viewed_update_tip": {
+            "tip": []
+        }
+    };
+    playerUser.setRootData(deepMerge(playerUser.getRootData(), PlayerUserDataSource));
+};
+
 export {
-    User
+    User,
+    updatePlayerUser,
+    updateSystemUser
 };

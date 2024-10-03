@@ -40,5 +40,6 @@ export const debugMes = {
         "indexNotFound": "index.js 文件丢失。",    // The index.js file is missing
         "fileNotFound": "%%s 文件未找到，请检查是否写入index.js，是否export和是否拼写正确。",    // The %%s file was not found. Please verify that the index.js, is written and that export and are spelled correctly.
         "idNotFound": "%%s 的路径对照不在 index.js 中，请检查是否写入index.js且类型是否为 String。"    // Path cross-reference for %%s is not in index.js, check that index.js is written and type is String
-    }
+    },
+    "gettingMenuPrompt": "已成功获得menu物品。" // Successfully acquired the menu item.
 };

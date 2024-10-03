@@ -178,7 +178,7 @@ class User {
         };
         sendMail(user, mail, uuid = tool.generateUUID()) {
             let Mail = {
-                "SourceName": this.data.name,
+                "SourceName": this.getName(),
                 "TargetName": user.getName(),
                 "Message": mail,
                 "Date": getDateString(),
@@ -191,11 +191,24 @@ class User {
             box.box.receive.push(Mail);
             user.setData("mailbox", box);
         };
+        addLog(name, log) {
+            let SystemUser = User.getUser("SystemUser", "name");
+            let logData = {
+                "Name": name,
+                "Message": log,
+                "Recorder": this.getName(),
+                "Date": getDateString(),
+                "Uuid": tool.generateUUID()
+            };
+            let logs = SystemUser.getData("log");
+            logs.logs.push(logData);
+            SystemUser.setData("log", logs);
+        };
         getData() {
             return this.data;
         };
         getName() {
-            return this.data.name;
+            return this.data.name ? this.data.name : this.id;
         };
         data;
         id = "";

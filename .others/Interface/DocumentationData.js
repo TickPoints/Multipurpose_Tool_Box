@@ -82,7 +82,7 @@ let interfaceData = {
             "function": "在设置中注册一个按钮"
         }
     },
-    "event.UDUiShowed.listen": {
+    "event.UDUIShowed.listen": {
         "needData": {
             "callbackId": "string"
         },
@@ -99,10 +99,10 @@ let interfaceData = {
             "needData": {
                 "callbackId": "提示包所需要的回调ID，事件触发后，提示包将发给此`callbackId:callback`"
             },
-            "function": "监听 UDUiShowed 事件(即开发者文档UI打开事件)，事件触发后，会发送提示包"
+            "function": "监听 UDUIShowed 事件(即开发者文档UI打开事件)，事件触发后，会发送提示包"
         }
     },
-    "event.SettingUiShowed.listen": {
+    "event.SettingUIShowed.listen": {
         "needData": {
             "callbackId": "string"
         },
@@ -119,10 +119,10 @@ let interfaceData = {
             "needData": {
                 "callbackId": "提示包所需要的回调ID，事件触发后，提示包将发给此`callbackId:callback`"
             },
-            "function": "监听 SettingUiShowed 事件(即设置UI打开事件)，事件触发后，会发送提示包"
+            "function": "监听 SettingUIShowed 事件(即设置UI打开事件)，事件触发后，会发送提示包"
         }
     },
-    "event.OPToolUiShowed.listen": {
+    "event.OPToolUIShowed.listen": {
         "needData": {
             "callbackId": "string"
         },
@@ -139,10 +139,10 @@ let interfaceData = {
             "needData": {
                 "callbackId": "提示包所需要的回调ID，事件触发后，提示包将发给此`callbackId:callback`"
             },
-            "function": "监听 OPUiShowed 事件(即OP工具UI打开事件)，事件触发后，会发送提示包"
+            "function": "监听 OPUIShowed 事件(即OP工具UI打开事件)，事件触发后，会发送提示包"
         }
     },
-    "event.ToolUiShowed.listen": {
+    "event.ToolUIShowed.listen": {
         "needData": {
             "callbackId": "string"
         },
@@ -159,10 +159,10 @@ let interfaceData = {
             "needData": {
                 "callbackId": "提示包所需要的回调ID，事件触发后，提示包将发给此`callbackId:callback`"
             },
-            "function": "监听 ToolUiShowed 事件(即一般工具UI打开事件)，事件触发后，会发送提示包"
+            "function": "监听 ToolUIShowed 事件(即一般工具UI打开事件)，事件触发后，会发送提示包"
         }
     },
-    "event.aboutUiShowed.listen": {
+    "event.aboutUIShowed.listen": {
         "needData": {
             "callbackId": "string"
         },
@@ -179,10 +179,10 @@ let interfaceData = {
             "needData": {
                 "callbackId": "提示包所需要的回调ID，事件触发后，提示包将发给此`callbackId:callback`"
             },
-            "function": "监听 aboutUiShowed 事件(即\"关于\"UI打开事件)，事件触发后，会发送提示包"
+            "function": "监听 aboutUIShowed 事件(即\"关于\"UI打开事件)，事件触发后，会发送提示包"
         }
     },
-    "event.menuUiShowed.listen": {
+    "event.menuUIShowed.listen": {
         "needData": {
             "callbackId": "string"
         },
@@ -199,7 +199,7 @@ let interfaceData = {
             "needData": {
                 "callbackId": "提示包所需要的回调ID，事件触发后，提示包将发给此`callbackId:callback`"
             },
-            "function": "监听 menuUiShowed 事件(即主菜单UI打开事件)，事件触发后，会发送提示包"
+            "function": "监听 menuUIShowed 事件(即主菜单UI打开事件)，事件触发后，会发送提示包"
         }
     },
     "event.commandReg.listen": {
@@ -237,7 +237,7 @@ let interfaceData = {
         "description": {
             "needData": {
                 "triggerName": "需打开此ui的玩家",
-                "uiName": "UI的名称，可选的有:\naboutUi\ntoolUi\nOPToolUi\nsettingUi\ncommandSystemUi\nUDUi"
+                "uiName": "UI的名称，可选的有:\naboutUI\ntoolUI\nOPToolUI\nsettingUI\ncommandSystemUI\nUDUI"
             },
             "function": "对目标玩家打开UI"
         }
@@ -286,6 +286,101 @@ let interfaceData = {
             "function": "使插件用户向目标用户发送邮件"
         }
     },
+    "user.PluginUser.getData": {
+        "needData": {
+            "UserId": "string"
+        },
+        "experiment": true,
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "UserData not found."
+            }],
+            "userData": [{
+                "?": "详见`插件用户数据库结构`"
+            }]
+        },
+        "description": {
+            "needData": {
+                "UserId": "已创建的插件用户ID"
+            },
+            "function": "获取插件用户的数据\n\n[插件用户数据库结构](../用户系统.md#插件用户)"
+        }
+    },
+    "user.PluginUser.addLog": {
+        "needData": {
+            "UserId": "string",
+            "LogName": "string",
+            "LogMessage": "string"
+        },
+        "experiment": true,
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "UserData not found."
+            }]
+        },
+        "description": {
+            "needData": {
+                "UserId": "已创建的插件用户ID",
+                "LogName": "需添加的日志名称",
+                "LogMessage": "需添加的日志记录信息"
+            },
+            "function": "使用插件用户记录日志"
+        }
+    },
+    "user.PluginUser.setName": {
+        "needData": {
+            "UserId": "string",
+            "name": "string"
+        },
+        "experiment": true,
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "UserData not found."
+            }]
+        },
+        "description": {
+            "needData": {
+                "UserId": "已创建的插件用户ID",
+                "name": "需设置的名称"
+            },
+            "function": "重设插件用户的名称"
+        }
+    },
+    "user.PluginUser.setData": {
+        "needData": {
+            "UserId": "string",
+            "data": "object"
+        },
+        "experiment": true,
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "UserData not found."
+            }]
+        },
+        "description": {
+            "needData": {
+                "UserId": "已创建的插件用户ID",
+                "data": "需设置的用户数据"
+            },
+            "function": "_Tip: 这是危险的_\n\n它可以重设插件用户内部的所有数据，甚至可能导致插件用户无法使用，为了安全考虑，您可以先读取(使用`user.Plugin.getData`)再在读取的数据上进行更改"
+        }
+    },
     "user.User.isAvailable": {
         "needData": {
             "UserData": "object"
@@ -304,6 +399,40 @@ let interfaceData = {
                 "UserData": "需要判定的用户数据"
             },
             "function": "判断用户数据是否符合要求"
+        }
+    },
+    "System.UserSystem.ProxyAction": {
+        "needData": {
+            "User": "object",
+            "OperationName": "string",
+            "OperationParameters": "object"
+        },
+        "experiment": true,
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "UserData not found."
+            }, {
+                "type": "Error",
+                "message": "No system level permission."
+            }],
+            "return": [{
+                "returnValue": "<执行后的返回值>"
+            }],
+            "error": [{
+                "error": "<执行时报出的错误>"
+            }]
+        },
+        "description": {
+            "needData": {
+                "User": "一个用户解析对象",
+                "OperationName": "操作函数的名称",
+                "OperationParameters": "带给操作函数的参数(列表形式)"
+            },
+            "function": "以系统权限代理其他用户(任何形式的)，然后通过此用户所有的方法进行操作"
         }
     },
     "System.commandSystem.registr": {
@@ -388,6 +517,26 @@ let interfaceData = {
         },
         "discard": {}
     },
+    "System.commandSystem.setRunCmdJob": {
+        "needData": {
+            "jobData": "string"
+        },
+        "returnPack": {
+            "result": [{
+                "type": "Pass",
+                "message": "Load Pass"
+            }, {
+                "type": "Error",
+                "message": "No system level permission."
+            }]
+        },
+        "description": {
+            "needData": {
+                "jobData": "要修改的runcmd函数的.toString()形式"
+            },
+            "function": "修改runcmd方法\n\n不要直接尝试去调用外部的方法，那是危险的，此方法的危险性极高，可能会破坏系统安全"
+        }
+    },
     "System.config.get": {
         "needData": {
             "path": "string"
@@ -460,4 +609,94 @@ let interfaceData = {
     }
 }
 
+let eventList = {
+    "UDUIShowed": {
+        "description": {
+            "data": {
+                "sourceName": "`UDUI`展示给的玩家名称"
+            },
+            "function": "有关`UDUI`展示的事件"
+        }
+    },
+    "SettingUIShowed": {
+        "description": {
+            "data": {
+                "sourceName": "`SettingUI`展示给的玩家名称"
+            },
+            "function": "有关`SettingUI`展示的事件"
+        }
+    },
+    "OPUIShowed": {
+        "description": {
+            "data": {
+                "sourceName": "`OPUI`展示给的玩家名称"
+            },
+            "function": "有关`OPUI`展示的事件"
+        }
+    },
+    "ToolUIShowed": {
+        "description": {
+            "data": {
+                "sourceName": "`ToolUI`展示给的玩家名称"
+            },
+            "function": "有关`ToolUI`展示的事件"
+        }
+    },
+    "aboutUIShowed": {
+        "description": {
+            "data": {
+                "sourceName": "`aboutUI`展示给的玩家名称"
+            },
+            "function": "有关`aboutUI`展示的事件"
+        }
+    },
+    "builtInToolUIShowed": {
+        "description": {
+            "data": {
+                "sourceName": "`builtInToolUI`展示给的玩家名称"
+            },
+            "function": "有关`builtInToolUI`展示的事件"
+        }
+    },
+    "PluginUserBeCreated": {
+        "description": {
+            "data": {
+                "source": "创建插件用户的包的`meta`数据",
+                "UserId": "被创建的插件用户的ID"
+            },
+            "function": "有关创建插件用户的事件"
+        }
+    },
+    "commandReg": {
+        "description": {
+            "data": {
+                "source": "注册命令的包的`meta`数据",
+                "commands": "注册的所有命令数据"
+            },
+            "function": "有关命令注册的事件"
+        }
+    },
+    "runCmdJobBeSet": {
+        "description": {
+            "data": {
+                "source": "修改`runCmdJob`的包的`meta`数据",
+                "jobData": "`runCmdJob`设置的原始数据"
+            },
+            "function": "有关`runCmdJob`设置的事件"
+        }
+    },
+    "UserProxyAction": {
+        "description": {
+            "data": {
+                "source": "进行此操作的包的`meta`数据",
+                "returnValue": "操作成功后的返回值(可能不存在)",
+                "OperationName": "当时进行的操作名称",
+                "OperationParameters": "当时传递的参数"
+            },
+            "function": "用户被代理后执行方法时所产生的事件(只有被正常执行，没有返回任何错误时有效)"
+        }
+    }
+}
+
 module.exports.interfaceData = interfaceData;
+module.exports.eventList = eventList;

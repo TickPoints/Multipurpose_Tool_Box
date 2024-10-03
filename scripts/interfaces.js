@@ -10,15 +10,15 @@ import {
     settingButtons,
     toolButtons,
     OPToolButtons,
-    aboutUiShow,
-    toolUiShow,
-    OPToolUiShow,
-    settingUiShow,
-    commandSystemUiShow,
-    UDUiShow,
+    aboutUIShow,
+    toolUIShow,
+    OPToolUIShow,
+    settingUIShow,
+    commandSystemUIShow,
+    UDUIShow,
     runcmd,
     SystemUser,
-    commandSystemEventUseRequestUiShow
+    commandSystemEventUseRequestUIShow
 }
 from "./Main.js";
 
@@ -205,7 +205,7 @@ mc.system.afterEvents.scriptEventReceive.subscribe(event => {
                 case "Entity":
                     let entity = event.sourceEntity;
                     if (entity.typeId === "minecraft:player") {
-                        commandSystemEventUseRequestUiShow(entity, event.message);
+                        commandSystemEventUseRequestUIShow(entity, event.message);
                     } else {
                         runcmd(entity, event.message);
                     };
@@ -372,9 +372,9 @@ const _Interface = {
             "callbackId": "string"
         }
     },
-    "event.UDUiShowed.listen": {
+    "event.UDUIShowed.listen": {
         "func": function(data, meta) {
-            EventEngine.listen("UDUiShowed", (eventData) => {
+            EventEngine.listen("UDUIShowed", (eventData) => {
                 sendDataPack(`${data.callbackId}:callback`, eventData);
             });
             sendResult(meta.uuid, "Load Pass.", "Pass");
@@ -383,9 +383,9 @@ const _Interface = {
             "callbackId": "string"
         }
     },
-    "event.SettingUiShowed.listen": {
+    "event.SettingUIShowed.listen": {
         "func": function(data, meta) {
-            EventEngine.listen("SettingUiShowed", (eventData) => {
+            EventEngine.listen("SettingUIShowed", (eventData) => {
                 sendDataPack(`${data.callbackId}:callback`, eventData);
             });
             sendResult(meta.uuid, "Load Pass.", "Pass");
@@ -394,9 +394,9 @@ const _Interface = {
             "callbackId": "string"
         }
     },
-    "event.OPToolUiShowed.listen": {
+    "event.OPToolUIShowed.listen": {
         "func": function(data, meta) {
-            EventEngine.listen("OPToolUiShowed", (eventData) => {
+            EventEngine.listen("OPToolUIShowed", (eventData) => {
                 sendDataPack(`${data.callbackId}:callback`, eventData);
             });
             sendResult(meta.uuid, "Load Pass.", "Pass");
@@ -405,9 +405,9 @@ const _Interface = {
             "callbackId": "string"
         }
     },
-    "event.ToolUiShowed.listen": {
+    "event.ToolUIShowed.listen": {
         "func": function(data, meta) {
-            EventEngine.listen("ToolUiShowed", (eventData) => {
+            EventEngine.listen("ToolUIShowed", (eventData) => {
                 sendDataPack(`${data.callbackId}:callback`, eventData);
             });
             sendResult(meta.uuid, "Load Pass.", "Pass");
@@ -416,9 +416,9 @@ const _Interface = {
             "callbackId": "string"
         }
     },
-    "event.aboutUiShowed.listen": {
+    "event.aboutUIShowed.listen": {
         "func": function(data, meta) {
-            EventEngine.listen("aboutUiShowed", (eventData) => {
+            EventEngine.listen("aboutUIShowed", (eventData) => {
                 sendDataPack(`${data.callbackId}:callback`, eventData);
             });
             sendResult(meta.uuid, "Load Pass.", "Pass");
@@ -427,9 +427,9 @@ const _Interface = {
             "callbackId": "string"
         }
     },
-    "event.menuUiShowed.listen": {
+    "event.menuUIShowed.listen": {
         "func": function(data, meta) {
-            EventEngine.listen("menuUiShowed", (eventData) => {
+            EventEngine.listen("menuUIShowed", (eventData) => {
                 sendDataPack(`${data.callbackId}:callback`, eventData);
             });
             sendResult(meta.uuid, "Load Pass.", "Pass");
@@ -453,23 +453,23 @@ const _Interface = {
         "func": function(data, meta) {
             let player = tool.nameToPlayer(data.triggerName);
             switch (uiName) {
-                case "aboutUi":
-                    aboutUiShow(player);
+                case "aboutUI":
+                    aboutUIShow(player);
                     break;
-                case "toolUi":
-                    toolUiShow(player);
+                case "toolUI":
+                    toolUIShow(player);
                     break;
-                case "OPToolUi":
-                    OPToolUiShow(player);
+                case "OPToolUI":
+                    OPToolUIShow(player);
                     break;
-                case "settingUi":
-                    settingUiShow(player);
+                case "settingUI":
+                    settingUIShow(player);
                     break;
-                case "commandSystemUi":
-                    commandSystemUiShow(player);
+                case "commandSystemUI":
+                    commandSystemUIShow(player);
                     break;
-                case "UDUi":
-                    UDUiShow(player);
+                case "UDUI":
+                    UDUIShow(player);
                     break;
                 default:
                     return;
@@ -485,6 +485,10 @@ const _Interface = {
         "func": function(data, meta) {
             let user = new User.PluginUser(meta.id, data.UserId);
             sendResult(meta.uuid, "Load Pass.", "Pass");
+            EventEngine.trigger("PluginUserBeCreated", {
+                "source": meta,
+                "UserId": data.UserId
+            });
         },
         "needData": {
             "UserId": "string"
@@ -511,6 +515,70 @@ const _Interface = {
             "Mail": "string"
         }
     },
+    "user.PluginUser.getData": {
+        "func": function(data, meta) {
+            // 实验性 Experiment
+            let user = User.PluginUser.getUser(meta.id, data.UserId);
+            if (user === null) {
+                sendResult(meta.uuid, "UserData not found.", "Error");
+                return;
+            };
+            sendDataPack(`${meta.uuid}:userData`, user.getData());
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "UserId": "string"
+        }
+    },
+    "user.PluginUser.addLog": {
+        "func": function(data, meta) {
+            // 实验性 Experiment
+            let user = User.PluginUser.getUser(meta.id, data.UserId);
+            if (user === null) {
+                sendResult(meta.uuid, "UserData not found.", "Error");
+                return;
+            };
+            user.addLog(data.LogName, data.LogMessage);
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "UserId": "string",
+            "LogName": "string",
+            "LogMessage": "string"
+        }
+    },
+    "user.PluginUser.setName": {
+        "func": function(data, meta) {
+            // 实验性 Experiment
+            let user = User.PluginUser.getUser(meta.id, data.UserId);
+            if (user === null) {
+                sendResult(meta.uuid, "UserData not found.", "Error");
+                return;
+            };
+            user.data.name = data.name;
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "UserId": "string",
+            "name": "string"
+        }
+    },
+    "user.PluginUser.setData": {
+        "func": function(data, meta) {
+            // 实验性 Experiment
+            let user = User.PluginUser.getUser(meta.id, data.UserId);
+            if (user === null) {
+                sendResult(meta.uuid, "UserData not found.", "Error");
+                return;
+            };
+            user.data = data.data;
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "UserId": "string",
+            "data": "object"
+        }
+    },
     "user.User.isAvailable": {
         "func": function(data, meta) {
             if (parseUser(data.UserData) === null) {
@@ -523,6 +591,44 @@ const _Interface = {
             "UserData": "object"
         }
     },
+    "System.UserSystem.ProxyAction": {
+        "func": function(data, meta) {
+            // 实验性 Experiment
+            if (!config.systemPlugins.includes(meta.id)) {
+                sendResult(meta.uuid, "No system level permission.", "Error");
+                return;
+            };
+            let user = parseUser(data.User);
+            if (user === null) {
+                sendResult(meta.uuid, "UserData not found.", "Error");
+                return;
+            };
+            let returnValue = "";
+            try {
+                returnValue = user[data.OperationName](...data.OperationParameters);
+                sendDataPack(`${meta.uuid}:return`, {
+                    "returnValue": returnValue
+                });
+            } catch(e) {
+                sendDataPack(`${meta.uuid}:error`, {
+                    "error": e
+                });
+                return;
+            };
+            EventEngine.trigger("UserProxyAction", {
+                "source": meta,
+                "returnValue": returnValue,
+                "OperationName": data.OperationName,
+                "OperationParameters": data.OperationParameters
+            });
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "User": "object",
+            "OperationName": "string",
+            "OperationParameters": "object"
+        }
+    },
     "System.commandSystem.registr": {
         "func": function(data, meta) {
             if (!config.systemPlugins.includes(meta.id)) {
@@ -531,7 +637,6 @@ const _Interface = {
             };
             commandSystemReg.push(data.commands);
             commandSystemRegReload();
-            tool.printErr(tool.translationf(debugMes.commandSystem.commandRegTip, meta.id), "Info", meta.name);
             EventEngine.trigger("commandReg", {
                 "source": meta,
                 "commands": data.commands
@@ -540,6 +645,25 @@ const _Interface = {
         },
         "needData": {
             "commands": "object"
+        }
+    },
+    "System.commandSystem.setRunCmdJob": {
+        "func": function(data, meta) {
+            // 实验性 Experiment
+            if (!config.systemPlugins.includes(meta.id)) {
+                sendResult(meta.uuid, "No system level permission.", "Error");
+                return;
+            };
+            // 污染警告 Pollution Warning
+            runcmd = eval(data.jobData);
+            EventEngine.trigger("runCmdJobBeSet", {
+                "source": meta,
+                "jobData": data.jobData
+            });
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "jobData": "string"
         }
     },
     "System.config.get": {

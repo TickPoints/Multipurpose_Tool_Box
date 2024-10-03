@@ -9,7 +9,8 @@ import "./loader.js";
 import {
     data,
     debugMes,
-    UDText
+    UDText,
+    LicenseText
 }
 from "./data.js";
 
@@ -39,35 +40,36 @@ let OPToolButtons = [];
 let settingButtons = [];
 let commandSystemReg = [];
 
-const menuUi = new ui.ActionFormData()
+const menuUI = new ui.ActionFormData()
     .title(data.menu.ui.title)
     .body(data.menu.ui.body)
     .button(data.menu.ui.button[0].name, data.menu.ui.button[0].image)
     .button(data.menu.ui.button[1].name, data.menu.ui.button[1].image)
     .button(data.menu.ui.button[2].name, data.menu.ui.button[2].image)
     .button(data.menu.ui.button[3].name, data.menu.ui.button[3].image);
-const aboutUi = new ui.ActionFormData()
+const aboutUI = new ui.ActionFormData()
     .title(data.about.ui.title)
     .body(data.about.ui.body)
     .button(data.about.ui.button[0].name, data.about.ui.button[0].image)
     .button(data.about.ui.button[1].name, data.about.ui.button[1].image)
-    .button(data.about.ui.button[2].name, data.about.ui.button[2].image);
-const builtInToolUi = new ui.ActionFormData()
+    .button(data.about.ui.button[2].name, data.about.ui.button[2].image)
+    .button(data.about.ui.button[3].name, data.about.ui.button[3].image);
+const builtInToolUI = new ui.ActionFormData()
     .title(data.builtIn.ui.title)
     .body(data.builtIn.ui.body)
     .button(data.builtIn.ui.button[0].name, data.builtIn.ui.button[0].image)
     .button(data.builtIn.ui.button[1].name, data.builtIn.ui.button[1].image)
     .button(data.builtIn.ui.button[2].name, data.builtIn.ui.button[2].image);
 
-let toolUi = new ui.ActionFormData()
+let toolUI = new ui.ActionFormData()
     .title(data.tool.ui.title)
     .body(data.tool.ui.debug)
     .button(data.tool.ui.button[0].name, data.tool.ui.button[0].image);
-let OPToolUi = new ui.ActionFormData()
+let OPToolUI = new ui.ActionFormData()
     .title(data.OPTool.ui.title)
     .body(data.OPTool.ui.debug)
     .button(data.OPTool.ui.button[0].name, data.OPTool.ui.button[0].image);
-let settingUi = new ui.ActionFormData()
+let settingUI = new ui.ActionFormData()
     .title(data.setting.ui.title)
     .body(data.setting.ui.mes)
     .button(data.setting.ui.button[0].name, data.setting.ui.button[0].image);
@@ -88,62 +90,83 @@ function commandSystemRegReload() {
 };
 
 function toolButtonsReload() {
-    toolUi = new ui.ActionFormData()
+    toolUI = new ui.ActionFormData()
         .title(data.tool.ui.title)
         .body(data.tool.ui.mes);
     for (let i of toolButtons) {
-        toolUi.button(i.name, i.image);
+        toolUI.button(i.name, i.image);
     };
-    toolUi.button(data.tool.ui.button[0].name, data.tool.ui.button[0].image);
+    toolUI.button(data.tool.ui.button[0].name, data.tool.ui.button[0].image);
 };
 
 function settingButtonsReload() {
-    settingUi = new ui.ActionFormData()
+    settingUI = new ui.ActionFormData()
         .title(data.setting.ui.title)
         .body(data.setting.ui.mes);
     for (let i of settingButtons) {
-        settingUi.button(i.name, i.image);
+        settingUI.button(i.name, i.image);
     };
-    settingUi.button(data.setting.ui.button[0].name, data.setting.ui.button[0].image);
+    settingUI.button(data.setting.ui.button[0].name, data.setting.ui.button[0].image);
 };
 
 function OPToolButtonsReload() {
-    OPToolUi = new ui.ActionFormData()
+    OPToolUI = new ui.ActionFormData()
         .title(data.tool.ui.title)
         .body(data.tool.ui.mes);
     for (let i of OPToolButtons) {
-        OPToolUi.button(i.name, i.image);
+        OPToolUI.button(i.name, i.image);
     };
-    OPToolUi.button(data.OPTool.ui.button[0].name, data.OPTool.ui.button[0].image);
+    OPToolUI.button(data.OPTool.ui.button[0].name, data.OPTool.ui.button[0].image);
 };
 
-function UDUiShow(player) {
-    EventEngine.trigger("UDUiShowed", {
+function UDUIShow(player) {
+    EventEngine.trigger("UDUIShowed", {
         "sourceName": player.name
     });
-    const UDUi = new ui.MessageFormData()
+    const UDUI = new ui.MessageFormData()
         .title(data.UD.ui.title)
         .body(UDText)
         .button1(data.UD.ui.button[0])
         .button2(data.UD.ui.button[1]);
-    UDUi.show(player)
+    UDUI.show(player)
         .then(r => {
             if (r.selection === 1) {
-                aboutUiShow(player);
+                aboutUIShow(player);
             };
             return;
         });
 };
 
-function commandSystemUiShow(player) {
-    let commandSystemUi = new ui.ModalFormData()
+function LicenseUIShow(player) {
+    EventEngine.trigger("LicenseUIShowed", {
+        "sourceName": player.name
+    });
+    const LicenseUI = new ui.MessageFormData()
+        .title(data.License.ui.title)
+        .body(LicenseText)
+        .button1(data.License.ui.button[0])
+        .button2(data.License.ui.button[1]);
+    LicenseUI.show(player)
+        .then(r => {
+            if (r.selection === 1) {
+                aboutUIShow(player);
+            };
+            return;
+        });
+};
+
+function commandSystemUIShow(player) {
+    EventEngine.trigger("commandSystemUIShowed", {
+        "sourceName": player.name
+    });
+    let commandSystemUI = new ui.ModalFormData()
         .title(data.commandSystem.ui.title)
         .textField(data.commandSystem.ui.textField[0].name, data.commandSystem.ui.textField[0].text)
         .submitButton(data.commandSystem.ui.submitButton.name);
-    commandSystemUi.show(player)
+    commandSystemUI.show(player)
         .then(r => {
             if (r.canceled) {
-                aboutUiShow(player);
+                aboutUIShow(player);
                 return;
             };
             runcmd(player, r.formValues[0]);
@@ -151,14 +174,14 @@ function commandSystemUiShow(player) {
         });
 };
 
-function settingUiShow(player) {
-    EventEngine.trigger("SettingUiShowed", {
+function settingUIShow(player) {
+    EventEngine.trigger("SettingUIShowed", {
         "sourceName": player.name
     });
-    settingUi.show(player)
+    settingUI.show(player)
         .then(r => {
             if (r.canceled) {
-                aboutUiShow(player);
+                aboutUIShow(player);
                 return;
             };
             if (settingButtons !== []) {
@@ -170,14 +193,14 @@ function settingUiShow(player) {
         });
 };
 
-function OPToolUiShow(player) {
-    EventEngine.trigger("OPToolUiShowed", {
+function OPToolUIShow(player) {
+    EventEngine.trigger("OPToolUIShowed", {
         "sourceName": player.name
     });
-    OPToolUi.show(player)
+    OPToolUI.show(player)
         .then(r => {
             if (r.canceled) {
-                menuUiShow(player);
+                menuUIShow(player);
                 return;
             };
             if (OPToolButtons !== []) {
@@ -189,14 +212,14 @@ function OPToolUiShow(player) {
         });
 };
 
-function toolUiShow(player) {
-    EventEngine.trigger("ToolUiShowed", {
+function toolUIShow(player) {
+    EventEngine.trigger("ToolUIShowed", {
         "sourceName": player.name
     });
-    toolUi.show(player)
+    toolUI.show(player)
         .then(r => {
             if (r.canceled) {
-                menuUiShow(player);
+                menuUIShow(player);
                 return;
             };
             if (toolButtons !== []) {
@@ -208,29 +231,32 @@ function toolUiShow(player) {
         });
 };
 
-function aboutUiShow(player) {
-    EventEngine.trigger("aboutUiShowed", {
+function aboutUIShow(player) {
+    EventEngine.trigger("aboutUIShowed", {
         "sourceName": player.name
     });
-    aboutUi.show(player)
+    aboutUI.show(player)
         .then(r => {
             if (r.canceled) {
-                menuUiShow(player);
+                menuUIShow(player);
                 return;
             };
             switch (r.selection) {
                 case 0:
-                    UDUiShow(player);
+                    UDUIShow(player);
                     break;
                 case 1:
-                    commandSystemUiShow(player);
+                    LicenseUIShow(player);
                     break;
                 case 2:
+                    commandSystemUIShow(player);
+                    break;
+                case 3:
                     if (!User.getUser(player).reachLevel(5)) {
-                        tool.printErr(debugMes.hopUiErr, "Warn", data.infoSource, player);
+                        tool.printErr(debugMes.hopUIErr, "Warn", data.infoSource, player);
                         return;
                     };
-                    settingUiShow(player);
+                    settingUIShow(player);
                     break;
                 default:
                     return;
@@ -238,14 +264,14 @@ function aboutUiShow(player) {
         });
 };
 
-function builtInToolUiShow(player) {
-    EventEngine.trigger("builtInToolUiShowed", {
+function builtInToolUIShow(player) {
+    EventEngine.trigger("builtInToolUIShowed", {
         "sourceName": player.name
     });
-    builtInToolUi.show(player)
+    builtInToolUI.show(player)
         .then(r => {
             if (r.canceled) {
-                menuUiShow(player);
+                menuUIShow(player);
                 return;
             };
             switch (r.selection) {
@@ -256,7 +282,7 @@ function builtInToolUiShow(player) {
                     permissionManagement(player);
                     break;
                 case 2:
-                    logUiShow(player);
+                    logUIShow(player);
                     break;
                 case 3:
                     break;
@@ -266,16 +292,16 @@ function builtInToolUiShow(player) {
         });
 };
 
-function menuUiShow(player) {
-    EventEngine.trigger("menuUiShowed", {
+function menuUIShow(player) {
+    EventEngine.trigger("menuUIShowed", {
         "sourceName": player.name
     });
-    menuUi.show(player)
+    menuUI.show(player)
         .then(r => {
             if (r.canceled) return;
             switch (r.selection) {
                 case 0:
-                    toolUiShow(player);
+                    toolUIShow(player);
                     break;
                 case 1:
                     if (!User.getUser(player).reachLevel(3)) {
@@ -283,13 +309,13 @@ function menuUiShow(player) {
                         SystemUser.addLog(new Date().toString(), debugMes.op.ui.openErr);
                         return;
                     };
-                    OPToolUiShow(player);
+                    OPToolUIShow(player);
                     break;
                 case 2:
-                    builtInToolUiShow(player);
+                    builtInToolUIShow(player);
                     break;
                 case 3:
-                    aboutUiShow(player);
+                    aboutUIShow(player);
                     break;
                 default:
                     return;
@@ -298,14 +324,14 @@ function menuUiShow(player) {
 };
 
 // Partition 分割
-function askUiShow(player, title = "askUi", body = "Are you sure?", button1 = "Yes", button2 = "no") {
-    let askUi = new ui.MessageFormData()
+function askUIShow(player, title = "askUI", body = "Are you sure?", button1 = "Yes", button2 = "no") {
+    let askUI = new ui.MessageFormData()
         .title(title)
         .body(body)
         .button1(button1)
         .button2(button2);
     return new Promise((resolve, reject) => {
-        askUi.show(player).then(async r => {
+        askUI.show(player).then(async r => {
             switch (r.selection) {
                 case 0:
                     resolve(true);
@@ -314,7 +340,7 @@ function askUiShow(player, title = "askUi", body = "Are you sure?", button1 = "Y
                     resolve(false);
                     break;
                 case undefined:
-                    let data = await askUiShow(player, title, body, button1, button2);
+                    let data = await askUIShow(player, title, body, button1, button2);
                     resolve(data);
                     break;
                 default:
@@ -324,20 +350,20 @@ function askUiShow(player, title = "askUi", body = "Are you sure?", button1 = "Y
     });
 };
 
-function multiIineTextEditingUiShow(player, list = [""]) {
-    let multiIineTextEditingUi = new ui.ModalFormData()
+function multiIineTextEditingUIShow(player, list = [""]) {
+    let multiIineTextEditingUI = new ui.ModalFormData()
         .title(data.builtIn.multiIineTextEditing.ui.title)
         .toggle(data.builtIn.multiIineTextEditing.ui.toggle[0].name, false);
     for (let i = 0; i < list.length; i++) {
-        multiIineTextEditingUi.textField(tool.translationf(data.builtIn.multiIineTextEditing.ui.textField[0].name, i + 1), data.builtIn.multiIineTextEditing.ui.textField[0].text, list[i]);
+        multiIineTextEditingUI.textField(tool.translationf(data.builtIn.multiIineTextEditing.ui.textField[0].name, i + 1), data.builtIn.multiIineTextEditing.ui.textField[0].text, list[i]);
     };
-    multiIineTextEditingUi.slider(data.builtIn.multiIineTextEditing.ui.slider[0].name, data.builtIn.multiIineTextEditing.ui.slider[0].min, data.builtIn.multiIineTextEditing.ui.slider[0].max, data.builtIn.multiIineTextEditing.ui.slider[0].valueStep, data.builtIn.multiIineTextEditing.ui.slider[0].defaultValue);
-    multiIineTextEditingUi.submitButton(data.builtIn.multiIineTextEditing.ui.submit);
+    multiIineTextEditingUI.slider(data.builtIn.multiIineTextEditing.ui.slider[0].name, data.builtIn.multiIineTextEditing.ui.slider[0].min, data.builtIn.multiIineTextEditing.ui.slider[0].max, data.builtIn.multiIineTextEditing.ui.slider[0].valueStep, data.builtIn.multiIineTextEditing.ui.slider[0].defaultValue);
+    multiIineTextEditingUI.submitButton(data.builtIn.multiIineTextEditing.ui.submit);
     return new Promise((resolve, reject) => {
-        multiIineTextEditingUi.show(player).then(async r => {
+        multiIineTextEditingUI.show(player).then(async r => {
             let data = "";
             if (r.canceled) {
-                data = await multiIineTextEditingUiShow(player, list);
+                data = await multiIineTextEditingUIShow(player, list);
             };
             let stringList = r.formValues.slice(1, r.formValues.length - 1);
             if (r.formValues[0] === true) {
@@ -349,7 +375,7 @@ function multiIineTextEditingUiShow(player, list = [""]) {
                 for (let i = 0; i < line; i++) {
                     stringList.push("");
                 };
-                data = await multiIineTextEditingUiShow(player, stringList);
+                data = await multiIineTextEditingUIShow(player, stringList);
             };
             resolve(data);
         });
@@ -360,7 +386,7 @@ function multiIineTextEditingUiShow(player, list = [""]) {
 mc.world.beforeEvents.itemUse.subscribe(event => {
     if (event.itemStack.typeId === "tool:menu") {
         mc.system.run(() => {
-            menuUiShow(event.source);
+            menuUIShow(event.source);
         });
     };
 });
@@ -409,6 +435,8 @@ function worldInitialize(event) {
     if (SystemUser === null) {
         UserDataReset.resetSystemUser();
     };
+    // ↓这是个人调试时使用的
+    // UserDataReset.resetPlayerUser(mc.world.getAllPlayers()[0]);
 };
 
 // UserData重置
@@ -445,36 +473,36 @@ const UserDataReset = {
 
 // builtInTool
 function handleMailServices(player) {
-    let handleMailUi = new ui.ActionFormData()
+    let handleMailUI = new ui.ActionFormData()
         .title(data.builtIn.mailServices.ui.title)
         .body(data.builtIn.mailServices.ui.body)
         .button(data.builtIn.mailServices.ui.button[0].name, data.builtIn.mailServices.ui.button[0].image)
         .button(data.builtIn.mailServices.ui.button[1].name, data.builtIn.mailServices.ui.button[1].image);
-    handleMailUi.show(player).then(r => {
+    handleMailUI.show(player).then(r => {
         if (r.canceled) {
-            builtInToolUiShow(player);
+            builtInToolUIShow(player);
             return;
         };
         switch (r.selection) {
             case 0:
-                SendMailUiShow(player);
+                SendMailUIShow(player);
                 break;
             case 1:
-                IncomingMailUiShow(player);
+                IncomingMailUIShow(player);
                 break;
             default:
                 return;
         };
     });
 };
-async function SendMailUiShow(player) {
+async function SendMailUIShow(player) {
     let target = await tool.chPlayer(player, data.builtIn.mailServices.chPlayer.title);
     if (target === false) {
         handleMailServices(player);
         return;
     };
-    let text = await multiIineTextEditingUiShow(player);
-    let askReturn = await askUiShow(player, data.builtIn.mailServices.ask.title, tool.translationf(data.builtIn.mailServices.ask.body, target.name, text));
+    let text = await multiIineTextEditingUIShow(player);
+    let askReturn = await askUIShow(player, data.builtIn.mailServices.ask.title, tool.translationf(data.builtIn.mailServices.ask.body, target.name, text));
     if (askReturn === true) {
         tool.printErr(data.builtIn.mailServices.send.player, "Info", data.builtIn.mailServices.source, player);
         tool.printErr(tool.translationf(data.builtIn.mailServices.send.target, target.name), "Info", data.builtIn.mailServices.source, target);
@@ -482,37 +510,50 @@ async function SendMailUiShow(player) {
     };
 };
 
-async function IncomingMailUiShow(player) {
-    let IncomingMailUi = new ui.ActionFormData()
+async function IncomingMailUIShow(player) {
+    let IncomingMailUI = new ui.ActionFormData()
         .title(data.builtIn.mailServices.IncomingMail.ui.title)
-        .body(data.builtIn.mailServices.IncomingMail.ui.body);
-    let operationUi = new ui.ActionFormData()
-        .title(data.builtIn.mailServices.IncomingMail.operationUi.title)
-        .button(data.builtIn.mailServices.IncomingMail.operationUi.button[0].name, data.builtIn.mailServices.IncomingMail.operationUi.button[0].image)
-        .button(data.builtIn.mailServices.IncomingMail.operationUi.button[1].name, data.builtIn.mailServices.IncomingMail.operationUi.button[1].image);
+        .body(data.builtIn.mailServices.IncomingMail.ui.body)
+        .button(data.builtIn.mailServices.IncomingMail.ui.buttons[0].name, data.builtIn.mailServices.IncomingMail.ui.buttons[0].image);
+    let operationUI = new ui.ActionFormData()
+        .title(data.builtIn.mailServices.IncomingMail.operationUI.title)
+        .button(data.builtIn.mailServices.IncomingMail.operationUI.button[0].name, data.builtIn.mailServices.IncomingMail.operationUI.button[0].image)
+        .button(data.builtIn.mailServices.IncomingMail.operationUI.button[1].name, data.builtIn.mailServices.IncomingMail.operationUI.button[1].image);
     let mailbox = User.getUser(player).getData("mailbox").box.receive;
-    if (mailbox.length === 0) {
+    /*if (mailbox.length === 0) {
         tool.printErr(data.builtIn.mailServices.IncomingMail.tip, "Info", data.builtIn.mailServices.source, player);
         return;
     };
+    旧版本无邮件时所给出的提示
+    */
     for (let i of mailbox) {
-        IncomingMailUi.button(tool.translationf(data.builtIn.mailServices.IncomingMail.ui.button, i.SourceName, i.Uuid));
+        IncomingMailUI.button(tool.translationf(data.builtIn.mailServices.IncomingMail.ui.button, i.SourceName, i.Uuid));
     };
-    IncomingMailUi.show(player).then(r => {
+    IncomingMailUI.show(player).then(async r => {
         if (r.canceled) {
             handleMailServices(player);
             return;
         };
-        let mail = mailbox[r.selection];
-        operationUi.body(tool.translationf(data.builtIn.mailServices.IncomingMail.operationUi.body, mail.SourceName, mail.TargetName, mail.Message, mail.Date, mail.Uuid));
-        operationUi.show(player).then(r => {
+        if (r.selection === 0) {
+            let result = await askUIShow(player, data.builtIn.mailServices.IncomingMail.clear.title, data.builtIn.mailServices.IncomingMail.clear.body);
+            if (result) {
+                mailbox = User.getUser(player).getData("mailbox");
+                mailbox.box.receive = [];
+                User.getUser(player).setData("mailbox", mailbox);
+            };
+            IncomingMailUIShow(player);
+            return;
+        };
+        let mail = mailbox[r.selection - 1]; // 减1以选中实际的邮件
+        operationUI.body(tool.translationf(data.builtIn.mailServices.IncomingMail.operationUI.body, mail.SourceName, mail.TargetName, mail.Message, mail.Date, mail.Uuid));
+        operationUI.show(player).then(r => {
             if (r.canceled) {
-                handleMailServices(player);
+                IncomingMailUIShow(player);
                 return;
             };
             switch (r.selection) {
                 case 0:
-                    SendMailUiShow(player);
+                    SendMailUIShow(player);
                     break;
                 case 1:
                     mailbox = User.getUser(player).getData("mailbox");
@@ -533,7 +574,7 @@ async function IncomingMailUiShow(player) {
 async function permissionManagement(player) {
     let target = await tool.chPlayer(player, data.builtIn.permissionManagement.chPlayer.title);
     if (target === false) {
-        builtInToolUiShow(player);
+        builtInToolUIShow(player);
         return;
     };
     let PlayerUser = User.getUser(player);
@@ -543,14 +584,14 @@ async function permissionManagement(player) {
         return;
     };
     // Partition 分割
-    let permissionManagementUi = new ui.ModalFormData()
+    let permissionManagementUI = new ui.ModalFormData()
         .title(data.builtIn.permissionManagement.ui.title)
         .slider(data.builtIn.permissionManagement.ui.slider[0].name, data.builtIn.permissionManagement.ui.slider[0].min, data.builtIn.permissionManagement.ui.slider[0].max, data.builtIn.permissionManagement.ui.slider[0].valueStep, TargetUser.getLevel())
         .toggle(data.builtIn.permissionManagement.ui.toggle[0].name, TargetUser.getData("hide_permissions_view"))
         .submitButton(data.builtIn.permissionManagement.ui.submit);
-    permissionManagementUi.show(player).then(r => {
+    permissionManagementUI.show(player).then(r => {
         if (r.canceled) {
-            builtInToolUiShow(player);
+            builtInToolUIShow(player);
             return;
         };
         if (!PlayerUser.reachLevel(TargetUser.getLevel())) {
@@ -571,32 +612,32 @@ async function permissionManagement(player) {
 };
 
 // log 日志
-async function logUiShow(player) {
+async function logUIShow(player) {
     let logs = SystemUser.getData("log").logs;
-    let logUi = new ui.ActionFormData()
+    let logUI = new ui.ActionFormData()
         .title(data.builtIn.log.ui.title)
         .body(data.builtIn.log.ui.body);
-    logUi.button(data.builtIn.log.ui.button[0].name);
+    logUI.button(data.builtIn.log.ui.button[0].name);
     for (let i of logs) {
-        logUi.button(tool.translationf(data.builtIn.log.ui.button[1].name, i.Name));
+        logUI.button(tool.translationf(data.builtIn.log.ui.button[1].name, i.Name));
     };
-    logUi.show(player).then(r => {
+    logUI.show(player).then(r => {
         if (r.canceled) {
-            builtInToolUiShow(player);
+            builtInToolUIShow(player);
             return;
         };
         if (r.selection === 0) {
-            addLogUiShow(player);
+            addLogUIShow(player);
             return;
         };
         let targetLog = logs[r.selection - 1];
-        let operationUi = new ui.ActionFormData()
-            .title(data.builtIn.log.operationUi.title)
-            .body(tool.translationf(data.builtIn.log.operationUi.body, targetLog.Name, targetLog.Message, targetLog.Recorder, targetLog.Date, targetLog.Uuid))
-            .button(data.builtIn.log.operationUi.button[0].name, data.builtIn.log.operationUi.button[0].image);
-        operationUi.show(player).then(r => {
+        let operationUI = new ui.ActionFormData()
+            .title(data.builtIn.log.operationUI.title)
+            .body(tool.translationf(data.builtIn.log.operationUI.body, targetLog.Name, targetLog.Message, targetLog.Recorder, targetLog.Date, targetLog.Uuid))
+            .button(data.builtIn.log.operationUI.button[0].name, data.builtIn.log.operationUI.button[0].image);
+        operationUI.show(player).then(r => {
             if (r.canceled) {
-                logUiShow(player);
+                logUIShow(player);
                 return;
             };
             switch (r.selection) {
@@ -616,8 +657,8 @@ async function logUiShow(player) {
     });
 };
 
-async function addLogUiShow(player) {
-    let text = await multiIineTextEditingUiShow(player, ["Log", data.builtIn.log.add.tip]);
+async function addLogUIShow(player) {
+    let text = await multiIineTextEditingUIShow(player, ["Log", data.builtIn.log.add.tip]);
     try {
         text = text.split("\n", 2);
     } catch {
@@ -627,16 +668,16 @@ async function addLogUiShow(player) {
     };
     User.getUser(player).addLog(text[0], text[1]);
     tool.printErr(data.builtIn.log.add.info, "Info", data.infoSource, player);
-    logUiShow(player);
+    logUIShow(player);
 };
 
-async function commandSystemEventUseRequestUiShow(player, message) {
+async function commandSystemEventUseRequestUIShow(player, message) {
     if (!config.commandSystem.eventUse.UIRequest.use) return;
     let playerUser = User.getUser(player);
     let useTime = playerUser.getData("commandSystemEventUseTime");
     const currentTime = new Date().getTime();
     if ((currentTime - useTime) <= (config.commandSystem.eventUse.UIRequest.requestPostpone * 1000)) return;
-    let result = await askUiShow(player, data.commandSystem.eventUse.ui.title, data.commandSystem.eventUse.ui.body);
+    let result = await askUIShow(player, data.commandSystem.eventUse.ui.title, data.commandSystem.eventUse.ui.body);
     playerUser.setData("commandSystemEventUseTime", new Date().getTime());
     if (result) runcmd(player, message);
 };
@@ -650,14 +691,14 @@ export {
     settingButtons,
     toolButtons,
     OPToolButtons,
-    aboutUiShow,
-    toolUiShow,
-    OPToolUiShow,
-    settingUiShow,
-    commandSystemUiShow,
-    UDUiShow,
+    aboutUIShow,
+    toolUIShow,
+    OPToolUIShow,
+    settingUIShow,
+    commandSystemUIShow,
+    UDUIShow,
     runcmd,
     SystemUser,
-    commandSystemEventUseRequestUiShow
+    commandSystemEventUseRequestUIShow
 };
 // 导出

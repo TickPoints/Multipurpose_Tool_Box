@@ -1,18 +1,16 @@
-_Tip: 实验中，在未来的版本中可能删除或做过多修改_
 _Tip: 需要系统级权限_
 # 参数
 ```
 {
-    "path": "string",
-    "value": null
+    "jobData": "string"
 }
 ```
-## path
-config路径
-## value
-任意类型(?)，设置后的config值
+## jobData
+要修改的runcmd函数的.toString()形式
 # 功能
-设置一个config的值
+修改runcmd方法
+
+不要直接尝试去调用外部的方法，那是危险的，此方法的危险性极高，可能会破坏系统安全
 # 返回包
 下面给出包不一定都存在，视情况有所变动
 

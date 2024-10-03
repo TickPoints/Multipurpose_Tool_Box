@@ -1,18 +1,16 @@
 _Tip: 实验中，在未来的版本中可能删除或做过多修改_
-_Tip: 需要系统级权限_
 # 参数
 ```
 {
-    "path": "string",
-    "value": null
+    "UserId": "string"
 }
 ```
-## path
-config路径
-## value
-任意类型(?)，设置后的config值
+## UserId
+已创建的插件用户ID
 # 功能
-设置一个config的值
+获取插件用户的数据
+
+[插件用户数据库结构](../用户系统.md#插件用户)
 # 返回包
 下面给出包不一定都存在，视情况有所变动
 
@@ -27,8 +25,18 @@ Id: `result`
 }
 
 {
-    "message": "No system level permission.",
+    "message": "UserData not found.",
     "type": "Error"
+}
+
+```
+## userData
+Id: `userData`
+
+```
+
+{
+    "?": "详见`插件用户数据库结构`"
 }
 
 ```

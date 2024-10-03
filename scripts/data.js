@@ -28,7 +28,10 @@ const data = {
             body: "查看有关的选项",
             button: [{
                 name: "使用文档",
-                image: path + "ui/recipe_book_icon" // Old:path + "ui/text_color_paintbrush_overlay"
+                image: path + "ui/recipe_book_icon"
+            }, {
+                name: "查看许可证",
+                image: path + "ui/text_color_paintbrush_overlay"
             }, {
                 name: "命令",
                 image: path + "blocks/command_block"
@@ -92,7 +95,7 @@ const data = {
                 info: "添加Log成功",
                 error: "Log输入错误，请检查Log具体情况"
             },
-            operationUi: {
+            operationUI: {
                 title: "查看或操作",
                 body: "§lLog-%%1§r\n记录: %%2\n记录员: %%3\n时间: %%4\nUuid: %%5",
                 button: [{
@@ -129,9 +132,13 @@ const data = {
                 ui: {
                     title: "收件箱",
                     body: "浏览您的邮件",
-                    button: "来自 %%1 的邮件(%%2)"
+                    button: "来自 %%1 的邮件(%%2)",  // 邮件选择按钮
+                    buttons: [{ // 功能性按钮
+                        name: "清空邮件箱",
+                        image: ""
+                    }]
                 },
-                operationUi: {
+                operationUI: {
                     title: "邮件",
                     body: "来源: %%1\n接收: %%2\n内容: %%3\n时间: %%4\nUuid: %%5\n接下来您可以进行您的操作。",
                     button: [{
@@ -142,7 +149,10 @@ const data = {
                         image: ""
                     }]
                 },
-                tip: "邮箱为空"
+                clear: {    // 清空邮件相功能相关
+                    title: "清空您的邮件箱?",
+                    body: "您确定要清空您的邮件箱吗?"
+                }
             },
             source: "mailServices"
         },
@@ -227,17 +237,26 @@ const data = {
             }]
         }
     },
+    License: {
+        ui: {
+            title: "许可证",
+            button: [
+                "我已知晓",
+                "返回"
+            ]
+        }
+    },
     version: {
         mode: "stable", // stable or experiment
-        code: "0.1.70",
-        uptip: "§f更新Tip:\n版号:§a0.1.70(稳定版)\n§c此版本与旧版本不兼容\n§a适配提供:测试版支持: 1.21.30.21 至 1.21.30.25\n正式版支持: 1.21.30 至 1.22.32§r"
+        code: "0.1.73",
+        uptip: "§f更新Tip:\n版号:§a0.1.73\n§a适配提供:测试版支持: 1.21.30.21 至 1.21.30.25\n正式版支持: 1.21.30 至 1.22.32§r"
     }
 };
 
 const debugMes = {
     hopSet: "您已成功成为最高管理员",
     hopSetErr: "最高管理员已被设置，您无法成为最高管理员",
-    hopUiErr: "您不是最高管理员，无权打开",
+    hopUIErr: "您不是最高管理员，无权打开",
     command: {
         tryRun: {
             true: "预执行成功",
@@ -278,17 +297,16 @@ const debugMes = {
             objectTypeError: "Id 为 %%1 的插件: 接口的调用错误: 需要使用的对象 %%2 类型错误，应该为 %%3",
             notFound: "Id 为 %%1 的插件: 接口的调用错误: 其调用的接口 %%2 不存在"
         }
-    },
-    commandSystem: {
-        commandRegTip: "Id 为 %%s 的插件，将一些命令注册到了命令系统中",
-        setRuncmdJobWarn: "id为 %%s 的插件调用了 toolAPI:setRuncmdJob 修改了命令执行器的运行逻辑"
     }
 };
 
-var UDText = `欢迎使用 多用工具箱，本工具箱本身是一个管理系统，仅有少量功能，通过注册的方式，就可以使本工具管理这些插件\n您可以通过一个tool:menu来打开菜单，用/function getHighestOP来获得最高管理\n多用工具箱 提供了一个完善的环境，功能注册，配置，命令，用户系统以及配套API工具，免去了开发者对这些功能的复杂开发。\n本包以GPL3.0.0/later协议开源，但只有直接自本包获取代码并做修改的受GPL协议限制，为本包制作插件或在其它处展示本包功能的不受GPL协议约束请放心使用。\n最后感谢您的使用\n\n版本:${data.version.code}(${data.version.mode})\n作者:TickPoints`;
+let UDText = `欢迎使用 多用工具箱，本工具箱本身是一个管理系统，仅有少量功能，通过注册的方式，就可以使本工具管理这些插件\n您可以通过一个tool:menu来打开菜单，用/function getHighestOP来获得最高管理\n多用工具箱 提供了一个完善的环境，功能注册，配置，命令，用户系统以及配套API工具，免去了开发者对这些功能的复杂开发。\n本包以GPL3.0.0/later协议开源，但只有直接自本包获取代码并做修改的受GPL协议限制，为本包制作插件或在其它处展示本包功能的不受GPL协议约束请放心使用。\n最后感谢您的使用\n\n版本:${data.version.code}(${data.version.mode})\n作者:TickPoints`;
+
+let LicenseText = "Multipurpose tool box provides a complete environment, including function registration, configuration, command, user system and supporting API tools, eliminating the complex development of these functions by developers, so that developers can operate more conveniently.\nCopyright (C) 2024  TickPoints\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\nYou should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>."
 
 export {
     data,
     debugMes,
-    UDText
+    UDText,
+    LicenseText
 };

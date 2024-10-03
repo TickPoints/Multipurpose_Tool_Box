@@ -10,15 +10,15 @@ import {
     settingButtons,
     toolButtons,
     OPToolButtons,
-    aboutUiShow,
-    toolUiShow,
-    OPToolUiShow,
-    settingUiShow,
-    commandSystemUiShow,
-    UDUiShow,
+    aboutUIShow,
+    toolUIShow,
+    OPToolUIShow,
+    settingUIShow,
+    commandSystemUIShow,
+    UDUIShow,
     runcmd,
     SystemUser,
-    commandSystemEventUseRequestUiShow
+    commandSystemEventUseRequestUIShow
 }
 from "./Main.js";
 
@@ -205,7 +205,7 @@ mc.system.afterEvents.scriptEventReceive.subscribe(event => {
                 case "Entity":
                     let entity = event.sourceEntity;
                     if (entity.typeId === "minecraft:player") {
-                        commandSystemEventUseRequestUiShow(entity, event.message);
+                        commandSystemEventUseRequestUIShow(entity, event.message);
                     } else {
                         runcmd(entity, event.message);
                     };
@@ -372,9 +372,9 @@ const _Interface = {
             "callbackId": "string"
         }
     },
-    "event.UDUiShowed.listen": {
+    "event.UDUIShowed.listen": {
         "func": function(data, meta) {
-            EventEngine.listen("UDUiShowed", (eventData) => {
+            EventEngine.listen("UDUIShowed", (eventData) => {
                 sendDataPack(`${data.callbackId}:callback`, eventData);
             });
             sendResult(meta.uuid, "Load Pass.", "Pass");
@@ -383,9 +383,9 @@ const _Interface = {
             "callbackId": "string"
         }
     },
-    "event.SettingUiShowed.listen": {
+    "event.SettingUIShowed.listen": {
         "func": function(data, meta) {
-            EventEngine.listen("SettingUiShowed", (eventData) => {
+            EventEngine.listen("SettingUIShowed", (eventData) => {
                 sendDataPack(`${data.callbackId}:callback`, eventData);
             });
             sendResult(meta.uuid, "Load Pass.", "Pass");
@@ -394,9 +394,9 @@ const _Interface = {
             "callbackId": "string"
         }
     },
-    "event.OPToolUiShowed.listen": {
+    "event.OPToolUIShowed.listen": {
         "func": function(data, meta) {
-            EventEngine.listen("OPToolUiShowed", (eventData) => {
+            EventEngine.listen("OPToolUIShowed", (eventData) => {
                 sendDataPack(`${data.callbackId}:callback`, eventData);
             });
             sendResult(meta.uuid, "Load Pass.", "Pass");
@@ -405,9 +405,9 @@ const _Interface = {
             "callbackId": "string"
         }
     },
-    "event.ToolUiShowed.listen": {
+    "event.ToolUIShowed.listen": {
         "func": function(data, meta) {
-            EventEngine.listen("ToolUiShowed", (eventData) => {
+            EventEngine.listen("ToolUIShowed", (eventData) => {
                 sendDataPack(`${data.callbackId}:callback`, eventData);
             });
             sendResult(meta.uuid, "Load Pass.", "Pass");
@@ -416,9 +416,9 @@ const _Interface = {
             "callbackId": "string"
         }
     },
-    "event.aboutUiShowed.listen": {
+    "event.aboutUIShowed.listen": {
         "func": function(data, meta) {
-            EventEngine.listen("aboutUiShowed", (eventData) => {
+            EventEngine.listen("aboutUIShowed", (eventData) => {
                 sendDataPack(`${data.callbackId}:callback`, eventData);
             });
             sendResult(meta.uuid, "Load Pass.", "Pass");
@@ -427,9 +427,9 @@ const _Interface = {
             "callbackId": "string"
         }
     },
-    "event.menuUiShowed.listen": {
+    "event.menuUIShowed.listen": {
         "func": function(data, meta) {
-            EventEngine.listen("menuUiShowed", (eventData) => {
+            EventEngine.listen("menuUIShowed", (eventData) => {
                 sendDataPack(`${data.callbackId}:callback`, eventData);
             });
             sendResult(meta.uuid, "Load Pass.", "Pass");
@@ -453,23 +453,23 @@ const _Interface = {
         "func": function(data, meta) {
             let player = tool.nameToPlayer(data.triggerName);
             switch (uiName) {
-                case "aboutUi":
-                    aboutUiShow(player);
+                case "aboutUI":
+                    aboutUIShow(player);
                     break;
-                case "toolUi":
-                    toolUiShow(player);
+                case "toolUI":
+                    toolUIShow(player);
                     break;
-                case "OPToolUi":
-                    OPToolUiShow(player);
+                case "OPToolUI":
+                    OPToolUIShow(player);
                     break;
-                case "settingUi":
-                    settingUiShow(player);
+                case "settingUI":
+                    settingUIShow(player);
                     break;
-                case "commandSystemUi":
-                    commandSystemUiShow(player);
+                case "commandSystemUI":
+                    commandSystemUIShow(player);
                     break;
-                case "UDUi":
-                    UDUiShow(player);
+                case "UDUI":
+                    UDUIShow(player);
                     break;
                 default:
                     return;

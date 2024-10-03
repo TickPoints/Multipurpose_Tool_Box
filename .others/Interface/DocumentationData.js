@@ -82,7 +82,7 @@ let interfaceData = {
             "function": "在设置中注册一个按钮"
         }
     },
-    "event.UDUiShowed.listen": {
+    "event.UDUIShowed.listen": {
         "needData": {
             "callbackId": "string"
         },
@@ -99,10 +99,10 @@ let interfaceData = {
             "needData": {
                 "callbackId": "提示包所需要的回调ID，事件触发后，提示包将发给此`callbackId:callback`"
             },
-            "function": "监听 UDUiShowed 事件(即开发者文档UI打开事件)，事件触发后，会发送提示包"
+            "function": "监听 UDUIShowed 事件(即开发者文档UI打开事件)，事件触发后，会发送提示包"
         }
     },
-    "event.SettingUiShowed.listen": {
+    "event.SettingUIShowed.listen": {
         "needData": {
             "callbackId": "string"
         },
@@ -119,10 +119,10 @@ let interfaceData = {
             "needData": {
                 "callbackId": "提示包所需要的回调ID，事件触发后，提示包将发给此`callbackId:callback`"
             },
-            "function": "监听 SettingUiShowed 事件(即设置UI打开事件)，事件触发后，会发送提示包"
+            "function": "监听 SettingUIShowed 事件(即设置UI打开事件)，事件触发后，会发送提示包"
         }
     },
-    "event.OPToolUiShowed.listen": {
+    "event.OPToolUIShowed.listen": {
         "needData": {
             "callbackId": "string"
         },
@@ -139,10 +139,10 @@ let interfaceData = {
             "needData": {
                 "callbackId": "提示包所需要的回调ID，事件触发后，提示包将发给此`callbackId:callback`"
             },
-            "function": "监听 OPUiShowed 事件(即OP工具UI打开事件)，事件触发后，会发送提示包"
+            "function": "监听 OPUIShowed 事件(即OP工具UI打开事件)，事件触发后，会发送提示包"
         }
     },
-    "event.ToolUiShowed.listen": {
+    "event.ToolUIShowed.listen": {
         "needData": {
             "callbackId": "string"
         },
@@ -159,10 +159,10 @@ let interfaceData = {
             "needData": {
                 "callbackId": "提示包所需要的回调ID，事件触发后，提示包将发给此`callbackId:callback`"
             },
-            "function": "监听 ToolUiShowed 事件(即一般工具UI打开事件)，事件触发后，会发送提示包"
+            "function": "监听 ToolUIShowed 事件(即一般工具UI打开事件)，事件触发后，会发送提示包"
         }
     },
-    "event.aboutUiShowed.listen": {
+    "event.aboutUIShowed.listen": {
         "needData": {
             "callbackId": "string"
         },
@@ -179,10 +179,10 @@ let interfaceData = {
             "needData": {
                 "callbackId": "提示包所需要的回调ID，事件触发后，提示包将发给此`callbackId:callback`"
             },
-            "function": "监听 aboutUiShowed 事件(即\"关于\"UI打开事件)，事件触发后，会发送提示包"
+            "function": "监听 aboutUIShowed 事件(即\"关于\"UI打开事件)，事件触发后，会发送提示包"
         }
     },
-    "event.menuUiShowed.listen": {
+    "event.menuUIShowed.listen": {
         "needData": {
             "callbackId": "string"
         },
@@ -199,7 +199,7 @@ let interfaceData = {
             "needData": {
                 "callbackId": "提示包所需要的回调ID，事件触发后，提示包将发给此`callbackId:callback`"
             },
-            "function": "监听 menuUiShowed 事件(即主菜单UI打开事件)，事件触发后，会发送提示包"
+            "function": "监听 menuUIShowed 事件(即主菜单UI打开事件)，事件触发后，会发送提示包"
         }
     },
     "event.commandReg.listen": {
@@ -237,7 +237,7 @@ let interfaceData = {
         "description": {
             "needData": {
                 "triggerName": "需打开此ui的玩家",
-                "uiName": "UI的名称，可选的有:\naboutUi\ntoolUi\nOPToolUi\nsettingUi\ncommandSystemUi\nUDUi"
+                "uiName": "UI的名称，可选的有:\naboutUI\ntoolUI\nOPToolUI\nsettingUI\ncommandSystemUI\nUDUI"
             },
             "function": "对目标玩家打开UI"
         }
@@ -576,52 +576,52 @@ let interfaceData = {
 }
 
 let eventList = {
-    "UDUiShowed": {
+    "UDUIShowed": {
         "description": {
             "data": {
-                "sourceName": "`UDUi`展示给的玩家名称"
+                "sourceName": "`UDUI`展示给的玩家名称"
             },
-            "function": "有关`UDUi`展示的事件"
+            "function": "有关`UDUI`展示的事件"
         }
     },
-    "SettingUiShowed": {
+    "SettingUIShowed": {
         "description": {
             "data": {
-                "sourceName": "`SettingUi`展示给的玩家名称"
+                "sourceName": "`SettingUI`展示给的玩家名称"
             },
-            "function": "有关`SettingUi`展示的事件"
+            "function": "有关`SettingUI`展示的事件"
         }
     },
-    "OPUiShowed": {
+    "OPUIShowed": {
         "description": {
             "data": {
-                "sourceName": "`OPUi`展示给的玩家名称"
+                "sourceName": "`OPUI`展示给的玩家名称"
             },
-            "function": "有关`OPUi`展示的事件"
+            "function": "有关`OPUI`展示的事件"
         }
     },
-    "ToolUiShowed": {
+    "ToolUIShowed": {
         "description": {
             "data": {
-                "sourceName": "`ToolUi`展示给的玩家名称"
+                "sourceName": "`ToolUI`展示给的玩家名称"
             },
-            "function": "有关`ToolUi`展示的事件"
+            "function": "有关`ToolUI`展示的事件"
         }
     },
-    "aboutUiShowed": {
+    "aboutUIShowed": {
         "description": {
             "data": {
-                "sourceName": "`aboutUi`展示给的玩家名称"
+                "sourceName": "`aboutUI`展示给的玩家名称"
             },
-            "function": "有关`aboutUi`展示的事件"
+            "function": "有关`aboutUI`展示的事件"
         }
     },
-    "builtInToolUiShowed": {
+    "builtInToolUIShowed": {
         "description": {
             "data": {
-                "sourceName": "`builtInToolUi`展示给的玩家名称"
+                "sourceName": "`builtInToolUI`展示给的玩家名称"
             },
-            "function": "有关`builtInToolUi`展示的事件"
+            "function": "有关`builtInToolUI`展示的事件"
         }
     },
     "PluginUserBeCreated": {

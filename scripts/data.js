@@ -95,7 +95,7 @@ const data = {
                 info: "添加Log成功",
                 error: "Log输入错误，请检查Log具体情况"
             },
-            operationUi: {
+            operationUI: {
                 title: "查看或操作",
                 body: "§lLog-%%1§r\n记录: %%2\n记录员: %%3\n时间: %%4\nUuid: %%5",
                 button: [{
@@ -134,7 +134,7 @@ const data = {
                     body: "浏览您的邮件",
                     button: "来自 %%1 的邮件(%%2)"
                 },
-                operationUi: {
+                operationUI: {
                     title: "邮件",
                     body: "来源: %%1\n接收: %%2\n内容: %%3\n时间: %%4\nUuid: %%5\n接下来您可以进行您的操作。",
                     button: [{
@@ -249,7 +249,7 @@ const data = {
 const debugMes = {
     hopSet: "您已成功成为最高管理员",
     hopSetErr: "最高管理员已被设置，您无法成为最高管理员",
-    hopUiErr: "您不是最高管理员，无权打开",
+    hopUIErr: "您不是最高管理员，无权打开",
     command: {
         tryRun: {
             true: "预执行成功",

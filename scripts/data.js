@@ -247,9 +247,9 @@ const data = {
         }
     },
     version: {
-        mode: "stable", // stable or experiment
-        code: "0.1.73",
-        uptip: "§f更新Tip:\n版号:§a0.1.73\n§a适配提供:测试版支持: 1.21.30.21 至 1.21.30.25\n正式版支持: 1.21.30 至 1.22.32§r"
+        mode: "experiment", // stable or experiment
+        code: "0.1.72",
+        uptip: "§f更新Tip:\n版号:§a0.1.72\n§a适配提供:测试版支持: 1.21.30.21 至 1.21.30.25\n正式版支持: 1.21.30 至 1.22.32§r"
     }
 };
 

@@ -223,23 +223,22 @@ class User {
 function deepMerge(target, source) {
     for (const key in source) {
         if (source.hasOwnProperty(key)) {
-            if (!target.hasOwnProperty(key) || target[key] === undefined) {
+            if (!target.hasOwnProperty(key)) {
                 target[key] = source[key];
-            } else {
-                if (typeof target[key] === "object" && target[key] !== null && typeof source[key] === "object" && source[key] !== null) {
-                    deepMerge(target[key], source[key]);
-                } else {
-                    target[key] = source[key];
-                };
-            };
+            } else if (typeof target[key] === "object" && target[key] !== null && typeof source[key] === "object" && source[key] !== null) {
+                deepMerge(target[key], source[key]);
+            }
         };
     };
     return target;
 };
 
-function updateSystemUser(SystemUser) {
-    SystemUser = new User("SystemUser", 6);
-    SystemUser.bind(mc.world);
+function updateSystemUser() {
+    let SystemUser = User.getUser(mc.world);
+    if (SystemUser === null) {
+        SystemUser = new User("SystemUser", 6);
+        SystemUser.bind(mc.world);
+    };
     const SystemUserDataSource = {
         "mailbox": {
             "box": {
@@ -256,8 +255,11 @@ function updateSystemUser(SystemUser) {
 };
 
 function updatePlayerUser(player) {
-    let playerUser = new User(`Player-${player.name}`, 1);
-    playerUser.bind(player);
+    let playerUser = User.getUser(player);
+    if (playerUser === null) {
+        playerUser = new User(`Player-${player.name}`, 1);
+        playerUser.bind(player);
+    };
     const PlayerUserDataSource = {
         "mailbox": {
             "box": {

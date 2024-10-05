@@ -136,6 +136,21 @@ class User {
             runcmd(mc.world, command);
         };
     };
+    TemporaryProxy = {
+        get: function() {
+            let ProxyUUID = tool.generateUUID();
+            ProxyList.push(ProxyUUID);
+            return ProxyUUID;
+        },
+        isValid: function(ProxyUUID) {
+            if (ProxyUUID in ProxyList) {
+                return true;
+            } else {
+                return false;
+            };
+        },
+        ProxyList: []
+    };
     static getUser(target, type = "bind") {
         switch (type) {
             case "bind":

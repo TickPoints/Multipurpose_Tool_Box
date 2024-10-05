@@ -20,6 +20,10 @@ ___
 作者: TickPoints
 
 QQ群: `676139516`
+
+公开提供:
+
+* Github: https://github.com/TickPoints/Multipurpose_Tool_Box
 ___
 # 基本使用
 1. 创建一个新的存档并添加多用工具箱系统

@@ -246,6 +246,16 @@ const data = {
             ]
         }
     },
+    interfaces: {
+        userProxyActionApplyUI: {
+            title: "§c授予插件代理权限",
+            body: "%%s 插件试图获取您的用户代理，以此使用您的用户数据进行一些操作，是否许可?",
+            button: [
+                "许可",
+                "否决"
+            ]
+        }
+    },
     version: {
         mode: "experiment", // stable or experiment
         code: "0.1.74",
@@ -272,7 +282,7 @@ const debugMes = {
         }
     },
     repairTip: "已修复意外降级操作",
-    interface: {
+    interfaces: {
         parseMessage: {
             messagePackError: {
                 typeError: "MessagePack的解释错误: MessagePack 类型不存在",

@@ -662,6 +662,7 @@ export {
     UDUIShow,
     runcmd,
     SystemUser,
-    commandSystemEventUseRequestUIShow
+    commandSystemEventUseRequestUIShow,
+    askUIShow
 };
 // 导出

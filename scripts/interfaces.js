@@ -101,23 +101,23 @@ function parseMessage(id, message) {
     try {
         messagePack = JSON.parse(message);
     } catch {
-        tool.printErr(debugMes.interface.parseMessage.JSONParseError, "Debug", data.infoSource);
+        tool.printErr(debugMes.interfaces.parseMessage.JSONParseError, "Debug", data.infoSource);
         return;
     };
     let dataPack;
     if (messagePack.type === null) {
-        tool.printErr(debugMes.interface.parseMessage.messagePackError.typeError, "Debug", data.infoSource);
+        tool.printErr(debugMes.interfaces.parseMessage.messagePackError.typeError, "Debug", data.infoSource);
         return;
     };
     if (messagePack.data === null) {
-        tool.printErr(debugMes.interface.parseMessage.messagePackError.dataError, "Debug", data.infoSource);
+        tool.printErr(debugMes.interfaces.parseMessage.messagePackError.dataError, "Debug", data.infoSource);
         return;
     };
     if (messagePack.type === "all") {
         dataPack = messagePack.data;
     } else {
         if (messagePack.space === null) {
-            tool.printErr(debugMes.interface.parseMessage.messagePackError.spaceIdError, "Debug", data.infoSource);
+            tool.printErr(debugMes.interfaces.parseMessage.messagePackError.spaceIdError, "Debug", data.infoSource);
             return;
         };
         switch (messagePack.type) {
@@ -129,7 +129,7 @@ function parseMessage(id, message) {
                 try {
                     _messagePackSpace[messagePack.space].push(messagePack.data);
                 } catch {
-                    tool.printErr(debugMes.interface.parseMessage.spaceError.spaceUninitialized, "Debug", data.infoSource);
+                    tool.printErr(debugMes.interfaces.parseMessage.spaceError.spaceUninitialized, "Debug", data.infoSource);
                     return;
                 };
                 break;
@@ -137,7 +137,7 @@ function parseMessage(id, message) {
                 try {
                     _messagePackSpace[messagePack.space].push(messagePack.data);
                 } catch {
-                    tool.printErr(debugMes.interface.parseMessage.spaceError.spaceUninitialized, "Debug", data.infoSource);
+                    tool.printErr(debugMes.interfaces.parseMessage.spaceError.spaceUninitialized, "Debug", data.infoSource);
                     return;
                 };
                 dataPack = "";
@@ -147,7 +147,7 @@ function parseMessage(id, message) {
                 _messagePackSpace[messagePack.space] = undefined;
                 break;
             default:
-                tool.printErr(debugMes.interface.parseMessage.messagePackError.typeError, "Debug", data.infoSource);
+                tool.printErr(debugMes.interfaces.parseMessage.messagePackError.typeError, "Debug", data.infoSource);
                 return;
         };
     };
@@ -155,19 +155,19 @@ function parseMessage(id, message) {
     try {
         dataPack = JSON.parse(dataPack);
     } catch {
-        tool.printErr(debugMes.interface.parseMessage.dataPackError.JSONParseError, "Debug", data.infoSource);
+        tool.printErr(debugMes.interfaces.parseMessage.dataPackError.JSONParseError, "Debug", data.infoSource);
         return;
     };
     if (dataPack.meta == null) {
-        tool.printErr(debugMes.interface.parseMessage.dataPackError.metaError.Uninitialized, "Debug", data.infoSource);
+        tool.printErr(debugMes.interfaces.parseMessage.dataPackError.metaError.Uninitialized, "Debug", data.infoSource);
         return;
     };
     if (dataPack.meta.id == null) {
-        tool.printErr(debugMes.interface.parseMessage.dataPackError.metaError.idUninitialized, "Debug", data.infoSource);
+        tool.printErr(debugMes.interfaces.parseMessage.dataPackError.metaError.idUninitialized, "Debug", data.infoSource);
         return;
     };
     if (dataPack.packData == null) {
-        tool.printErr(debugMes.interface.parseMessage.dataPackError.dataUninitialized, "Debug", data.infoSource);
+        tool.printErr(debugMes.interfaces.parseMessage.dataPackError.dataUninitialized, "Debug", data.infoSource);
         return;
     };
     loadInterface(id, dataPack);
@@ -230,18 +230,18 @@ mc.system.afterEvents.scriptEventReceive.subscribe(event => {
 function loadInterface(id, dataPack) {
     let entry = _Interface[id.split(":")[1]];
     if (entry === undefined) {
-        tool.printErr(tool.translationf(debugMes.interface.load.notFound, dataPack.meta.id, id.split(":")[1]), "Debug", dataPack.meta.name);
+        tool.printErr(tool.translationf(debugMes.interfaces.load.notFound, dataPack.meta.id, id.split(":")[1]), "Debug", dataPack.meta.name);
         return;
     };
     for (let i of Object.keys(entry.needData)) {
         if (i in dataPack.packData) {
             if (entry.needData[i] == null) continue;
             if (typeof dataPack.packData[i] !== entry.needData[i]) {
-                tool.printErr(tool.translationf(debugMes.interface.load.objectTypeError, dataPack.meta.id, i, entry.needData[i]), "Debug", dataPack.meta.name);
+                tool.printErr(tool.translationf(debugMes.interfaces.load.objectTypeError, dataPack.meta.id, i, entry.needData[i]), "Debug", dataPack.meta.name);
                 return;
             };
         } else {
-            tool.printErr(tool.translationf(debugMes.interface.load.objectLost, dataPack.meta.id, i), "Debug", dataPack.meta.name);
+            tool.printErr(tool.translationf(debugMes.interfaces.load.objectLost, dataPack.meta.id, i), "Debug", dataPack.meta.name);
             return;
         };
     };
@@ -591,6 +591,68 @@ const _Interface = {
             "UserData": "object"
         }
     },
+    "user.User.ProxyAction.apply": {
+        "func": async function(data, meta) {
+            let player = tool.nameToPlayer(data.PlayerUserName);
+            if (player === null) {
+                sendResult(meta.uuid, "User does not exist.", "Error");
+            };
+            let result = await askUIShow(player, data.interfaces.userProxyActionApplyUI.title, tool.translationf(data.interfaces.userProxyActionApplyUI.body, meta.name), data.interfaces.userProxyActionApplyUI.button[0], data.interfaces.userProxyActionApplyUI.button[1]);
+            if (result) {
+                let TemporaryProxy = User.getUser(player).TemporaryProxy.get();
+                sendDataPack(`${meta.uuid}:UserProxyApplyResult`, {
+                    "result": "Pass",
+                    "ProxyCode": TemporaryProxy
+                });
+            } else {
+                sendDataPack(`${meta.uuid}:UserProxyApplyResult`, {
+                    "result": "This request was rejected by the user."
+                });
+            };
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "PlayerUserName": "string"
+        }
+    },
+    "user.User.ProxyAction.operate": {
+        "func": function(data, meta) {
+            let playerUser = User.getUser(tool.nameToPlayer(data.PlayerUserName));
+            if (playerUser === null) {
+                sendResult(meta.uuid, "User does not exist.", "Error");
+            };
+            const result = playerUser.TemporaryProxy.isValid(data.ProxyCode);
+            if (!result) {
+                sendResult(meta.uuid, "Invalid ProxyCode.", "Error");
+                return;
+            };
+            let returnValue = "";
+            try {
+                returnValue = user[data.OperationName](...data.OperationParameters);
+                sendDataPack(`${meta.uuid}:return`, {
+                    "returnValue": returnValue
+                });
+            } catch (e) {
+                sendDataPack(`${meta.uuid}:error`, {
+                    "error": e
+                });
+                return;
+            };
+            EventEngine.trigger("UserProxyAction", {
+                "source": meta,
+                "returnValue": returnValue,
+                "OperationName": data.OperationName,
+                "OperationParameters": data.OperationParameters
+            });
+            sendResult(meta.uuid, "Load Pass.", "Pass");
+        },
+        "needData": {
+            "PlayerUserName": "string",
+            "ProxyCode": "string",
+            "OperationName": data.OperationName,
+            "OperationParameters": data.OperationParameters
+        }
+    },
     "System.UserSystem.ProxyAction": {
         "func": function(data, meta) {
             // 实验性 Experiment
@@ -609,7 +671,7 @@ const _Interface = {
                 sendDataPack(`${meta.uuid}:return`, {
                     "returnValue": returnValue
                 });
-            } catch(e) {
+            } catch (e) {
                 sendDataPack(`${meta.uuid}:error`, {
                     "error": e
                 });
